@@ -391,7 +391,7 @@
         Greatsword: [
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 7, percentage: 100 },
             { stat: "Critical Chance", minx: 0.35, maxx: 0.4, mins: 500, maxs: 1000, percentage: 100 },
-            { stat: "Berserk", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 50 },
+            { stat: "Berserk Damage", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 50 },
             { stat: "Stun Chance", minx: 0.25, maxx: 0.3, mins: 100, maxs: 500, percentage: 25 }
         ],
 
@@ -412,7 +412,7 @@
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 6, percentage: 100 },
             { stat: "Bleed", minx: 0.03, maxx: 0.07, mins: 2, maxs: 6, percentage: 100 },
             { stat: "Bleed Chance", minx: 0.5, maxx: 0.6, mins: 100, maxs: 400, percentage: 100 },
-            { stat: "Berserk", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 25 },
+            { stat: "Berserk Damage", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 25 },
             { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
         ],
 
@@ -1030,24 +1030,25 @@ const roundStats = [
         "Mana Efficiency": 30,
         "Paralysis Chance": 50,
         "Cast Surge": 300,
-        "Ore Explorer": 100,
+        "Ore Explorer": 30, // Chest: 30, Helm: 20
         "Reflect Chance": 15,
         "Coin Magnet": 2,
         "Spell Damage": 200,
         "Elite Damage": 10,
         "Boss Damage": 10,
         "Piercing": 4,
-        "Poison Chance": 100,
+        "Poison Chance": 30,
         "Crit 3 Combo": 1,
         "Quad Ore": 100,
         "Max Barrier": 50,
-        "Haste Damage": 30,
+        "Haste Damage": 10,
         "Self Damage": 10,
         "Spellcast Marty": 40,
         "Free Spellcast": 10,
-        "Haste Chance": 100,
+        "Haste Chance": 5,
         "Quick Hit 3": 1,
-        "Double Item Chance": 100,
+        "Double Item Chance": 30,
+        // "Mana %": 10,  Uncapped Longstaff, capped for Magician-H and Serpent-H
         "Crit 2 Combo": 1,
         "Knockback 3": 1,
         "Controller": 1,
