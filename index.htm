@@ -5,10 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OBA Equipment Stats Look-up</title>
     <style>
+        /* Default styling (desktop-first approach) */
+    body {
+        background-color: #0d0d2b;
+        color: #f3d4aa;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+        /* justify-content: center;  Center content vertically */
+        min-height: 100vh;
+    }
+
+    /* Ensure tables and selects don't stretch too much */
+    table, select {
+        max-width: 80%;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
         body {
-            background-color: #0d0d2b;
-            color: #f3d4aa; /* Set text color for the entire document */
+            align-items: flex-start; /* Align to the left on mobile */
+            padding: 10px;
         }
+
+        table, select {
+            max-width: 100%; /* Full width on small screens */
+        }
+
+        h2 {
+            text-align: center; /* Keep headings centered */
+            width: 100%;
+        }
+    }
+
 
         select {
             width: 200px; /* Adjust width as needed */
