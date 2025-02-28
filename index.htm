@@ -114,8 +114,10 @@
     <label for="equipment">Equipment:</label>
     </td><td>
     <select id="equipment">
-    <!-- Weapon options group -->
-    <optgroup label="Weapon">
+
+    <!-- Melee options group -->
+
+    <optgroup label="Melee">
         <option value="Axe">Axe</option>
         <option value="BattleAxe">Battle Axe</option>
         <option value="ChargedSpear">Charged Spear</option>
@@ -134,6 +136,11 @@
         <option value="Slicer">Slicer</option>
         <option value="Smasher">Smasher</option>
         <option value="Splitter">Splitter</option>
+    </optgroup>
+
+    <!-- Magic options group -->
+
+    <optgroup label="Magic">
         <option value="BeholderWand">Beholder Wand</option>
         <option value="CrystalStaff">Crystal Staff</option>
         <option value="FrailStaff">Frail Staff</option>
@@ -144,6 +151,11 @@
         <option value="NemesisOrb">Nemesis Orb</option>
         <option value="Scepter">Scepter</option>
         <option value="SpiritStaff">Spirit Staff</option>
+    </optgroup>
+
+    <!-- Ranged options group -->
+
+    <optgroup label="Ranged">
         <option value="Fang">Fang</option>
         <option value="ColossalBow">Colossal Bow</option>
         <option value="GnasherBow">Gnasher Bow</option>
@@ -340,7 +352,7 @@
     </td></tr>
     </table>
  
-    <h2>Stats</h2>
+    <!-- <h2>Stats</h2> -->
     <table id="Results">
         <thead>
             <tr>
@@ -906,7 +918,7 @@ function updateResultsHeader() {
     // List of stats that should always display as percentages
     const percentageStats = [
         "Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", 
-        "Bleed Chance", "Berserk", "Stun Chance", "Armor", "Hp Efficiency", 
+        "Bleed Chance", "Berserk Damage", "Stun Chance", "Armor", "Hp Efficiency", 
         "Double Ore", "Endure", "Poison Reduction", "Triple Ore", 
         "Knockback", "Life Heal", "Mana Efficiency", "Paralysis Chance", 
         "Cast Surge", "Ore Explorer", "Reflect Chance", "Spell Damage", 
@@ -919,6 +931,7 @@ function updateResultsHeader() {
 
     // Get rarity value
     const rarity = getRarityValue();
+
     // Get level from dropdown
     const level = parseInt(document.getElementById('level').value);
 
@@ -930,37 +943,37 @@ function updateResultsHeader() {
         return; // Exit if no equipment found
     }
 
-// List of stats that should be rounded to whole numbers
-const roundStats = [
-    "Health", 
-    "Damage", 
-    "Mana", 
-    "Mp Damage", 
-    "Extra Coin", 
-    "Burn Damage", 
-    "Bleed", 
-    "+1 Stew Output", 
-    "Multi-Atk", 
-    "Quick Breaking", 
-    "Unbinding", 
-    "Range", 
-    "Ricochet", 
-    "Mining", 
-    "Snow Day", 
-    "Amount", 
-    "Scatter", 
-    "Sweeping", 
-    "Looting", 
-    "Coin Magnet", 
-    "Piercing", 
-    "Crit 3 Combo", 
-    "Quick Hit 3", 
-    "Crit 2 Combo", 
-    "Knockback 3", 
-    "Controller", 
-    "Paralysis 3", 
-    "Quick Hit 2", 
-    "AOE"
+    // List of stats that should be rounded to whole numbers
+    const roundStats = [
+        "Health", 
+        "Damage", 
+        "Mana", 
+        "Mp Damage", 
+        "Extra Coin", 
+        "Burn Damage", 
+        "Bleed", 
+        "+1 Stew Output", 
+        "Multi-Atk", 
+        "Quick Breaking", 
+        "Unbinding", 
+        "Range", 
+        "Ricochet", 
+        "Mining", 
+        "Snow Day", 
+        "Amount", 
+        "Scatter", 
+        "Sweeping", 
+        "Looting", 
+        "Coin Magnet", 
+        "Piercing", 
+        "Crit 3 Combo", 
+        "Quick Hit 3", 
+        "Crit 2 Combo", 
+        "Knockback 3", 
+        "Controller", 
+        "Paralysis 3", 
+        "Quick Hit 2", 
+        "AOE"
     ];
 
     // Object defining minimum values for certain stats
@@ -1036,7 +1049,7 @@ const roundStats = [
         "Spell Damage": 200,
         "Elite Damage": 10,
         "Boss Damage": 10,
-        "Piercing": 4,
+        "Piercing": 2,
         "Poison Chance": 30,
         "Crit 3 Combo": 1,
         "Quad Ore": 100,
@@ -1098,6 +1111,88 @@ const roundStats = [
         "Fang": { "Range": 5 }
     };
 
+    // Assign minimum and maximum rarity for items
+    const items = {
+        Axe: { minr: 1, maxr: 2 },
+        BattleAxe: { minr: 1, maxr: 2 },
+        ChargedSpear: { minr: 1, maxr: 2 },
+        Cleaver: { minr: 1, maxr: 2 },
+        Crusher: { minr: 1, maxr: 2 },
+        Dagger: { minr: 1, maxr: 2 },
+        DivingBlade: { minr: 1, maxr: 2 },
+        Gladius: { minr: 1, maxr: 2 },
+        GreaterPickaxe: { minr: 1, maxr: 2 },
+        Greatsword: { minr: 1, maxr: 2 },
+        JaggedBlade: { minr: 1, maxr: 2 },
+        Longsword: { minr: 1, maxr: 2 },
+        Mallet: { minr: 1, maxr: 2 },
+        Pickaxe: { minr: 1, maxr: 2 },
+        Scimitar: { minr: 1, maxr: 2 },
+        Slicer: { minr: 1, maxr: 2 },
+        Smasher: { minr: 1, maxr: 2 },
+        Splitter: { minr: 1, maxr: 2 },
+        BeholderWand: { minr: 1, maxr: 2 },
+        CrystalStaff: { minr: 1, maxr: 2 },
+        FrailStaff: { minr: 1, maxr: 2 },
+        JadeStaff: { minr: 1, maxr: 2 },
+        LargeRod: { minr: 1, maxr: 2 },
+        LongStaff: { minr: 1, maxr: 2 },
+        MagicStick: { minr: 1, maxr: 2 },
+        NemesisOrb: { minr: 1, maxr: 2 },
+        Scepter: { minr: 1, maxr: 2 },
+        SpiritStaff: { minr: 1, maxr: 2 },
+        CobraFang: { minr: 1, maxr: 2 },
+        ColossalBow: { minr: 1, maxr: 2 },
+        GnasherBow: { minr: 1, maxr: 2 },
+        Kunai: { minr: 1, maxr: 2 },
+        QuickBow: { minr: 1, maxr: 2 },
+        RecurveBow: { minr: 1, maxr: 2 },
+        Shuriken: { minr: 1, maxr: 2 },
+        Tendril: { minr: 1, maxr: 2 },
+        Tomahawk: { minr: 1, maxr: 2 },
+        Tribow: { minr: 1, maxr: 2 },
+        TrinityBow: { minr: 1, maxr: 2 },
+        Warbow: { minr: 1, maxr: 2 },
+        BrodC: { minr: 1, maxr: 2 },
+        Cloak: { minr: 1, maxr: 2 },
+        DefenderC: { minr: 1, maxr: 2 },
+        DivingC: { minr: 1, maxr: 2 },
+        DragonC: { minr: 1, maxr: 2 },
+        FanaticC: { minr: 1, maxr: 2 },
+        GauntletC: { minr: 1, maxr: 2 },
+        GreedC: { minr: 1, maxr: 2 },
+        HeavyC: { minr: 1, maxr: 2 },
+        MagicianC: { minr: 1, maxr: 2 },
+        MajesticC: { minr: 1, maxr: 2 },
+        MinerC: { minr: 1, maxr: 2 },
+        MonsterC: { minr: 1, maxr: 2 },
+        RoninC: { minr: 1, maxr: 2 },
+        RusticC: { minr: 1, maxr: 2 },
+        SentinelC: { minr: 1, maxr: 2 },
+        SerpentC: { minr: 1, maxr: 2 },
+        WarlockC: { minr: 1, maxr: 2 },
+        BrodH: { minr: 1, maxr: 2 },
+        DefenderH: { minr: 1, maxr: 2 },
+        DivingH: { minr: 1, maxr: 2 },
+        DragonH: { minr: 1, maxr: 2 },
+        FanaticH: { minr: 1, maxr: 2 },
+        FlameH: { minr: 1, maxr: 2 },
+        GauntletH: { minr: 1, maxr: 2 },
+        GreedH: { minr: 1, maxr: 2 },
+        GustafsMask: { minr: 1, maxr: 2 },
+        HeavyH: { minr: 1, maxr: 2 },
+        MagicianH: { minr: 1, maxr: 2 },
+        MajesticH: { minr: 1, maxr: 2 },
+        MinerH: { minr: 1, maxr: 2 },
+        MonsterH: { minr: 1, maxr: 2 },
+        RoninH: { minr: 1, maxr: 2 },
+        RusticH: { minr: 1, maxr: 2 },
+        SentinelH: { minr: 1, maxr: 2 },
+        SerpentH: { minr: 1, maxr: 2 },
+        SnowHat: { minr: 1, maxr: 2 },
+        WarlockH: { minr: 1, maxr: 2 }
+    };
+
 // Loop through equipment stats
 equipment.forEach(item => {
     let minResult, maxResult;
@@ -1140,11 +1235,6 @@ equipment.forEach(item => {
         minResult += '%';
         maxResult += '%';
     }
-
-// Now format the numbers using toLocaleString to add separators
-// (Convert them to numbers if they might be strings)
-// minResult = Number(minResult).toLocaleString();
-// maxResult = Number(maxResult).toLocaleString();
 
     // Add result row to table
     const row = document.createElement('tr');
