@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBA Equipment Stats Look-up</title>
+    <style>
+        body {
+            background-color: #0d0d2b;
+            color: #f3d4aa; /* Set text color for the entire document */
+        }
+
+        select {
+            width: 200px; /* Adjust width as needed */
+            height: 40px; /* Adjust height for a rectangular shape */
+            border: 2px solid #000; /* Black border */
+            border-radius: 5px; /* Slightly rounded edges (set to 0 for sharp edges) */
+            padding: 5px;
+            font-size: 16px; /* Adjust font size */
+            color: #f3d4aa;
+            background-color: #363b77; 
+            cursor: pointer;
+        }
+
+        /* Optional: Style dropdown on focus */
+        select:focus {
+            border-color: #007bff; /* Blue border when selected */
+            outline: none;
+        }
+ 
+        /* Select options table without border */
+        #selectOptions {
+            background-color: #0d0d2b; /* Same background color as the body */
+            border: none; /* Remove the border */
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 20px;
+        }
+ 
+        th, td {
+            padding: 8px;
+            color: inherit; /* Inherit text color from body */
+        }
+        
+        th {
+            background-color: #363b77;
+        }
+ 
+        /* Center-align the first column */
+        td:nth-child(1), th:nth-child(1) {
+            text-align: center;
+        }
+ 
+        /* Left-align the second column */
+        td:nth-child(2), th:nth-child(2) {
+            text-align: left;
+        }
+ 
+        /* #Results table styles */
+        #Results {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #363b77; /* Table background color */
+            border: 1px solid #c69da3; /* Border around the whole table */
+        }
+ 
+        #Results td, #Results th {
+            border: 1px solid #c69da3; /* Border for cells in Results */
+        }
+        
+        td:nth-child(n+2), th:nth-child(n+2) {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Equipment Stats Look-up</h2>
+    <table id="selectOptions">
+    <tr><td>
+    <label for="equipment">Equipment:</label>
+    </td><td>
+    <select id="equipment">
+    <!-- Weapon options group -->
+    <optgroup label="Weapon">
+        <option value="Axe">Axe</option>
+        <option value="BattleAxe">Battle Axe</option>
+        <option value="ChargedSpear">Charged Spear</option>
+        <option value="Cleaver">Cleaver</option>
+        <option value="Crusher">Crusher</option>
+        <option value="Dagger">Dagger</option>
+        <option value="DivineBlade">Divine Blade</option>
+        <option value="Gladius">Gladius</option>
+        <option value="GreaterPickaxe">Greater Pickaxe</option>
+        <option value="Greatsword">Greatsword</option>
+        <option value="JaggedBlade">Jagged Blade</option>
+        <option value="Longsword">Longsword</option>
+        <option value="Mallet">Mallet</option>
+        <option value="Pickaxe">Pickaxe</option>
+        <option value="Scimitar">Scimitar</option>
+        <option value="Slicer">Slicer</option>
+        <option value="Smasher">Smasher</option>
+        <option value="Splitter">Splitter</option>
+        <option value="BeholderWand">Beholder Wand</option>
+        <option value="CrystalStaff">Crystal Staff</option>
+        <option value="FrailStaff">Frail Staff</option>
+        <option value="JadeStaff">Jade Staff</option>
+        <option value="LargeRod">Large Rod</option>
+        <option value="LongStaff">Long Staff</option>
+        <option value="MagicStick">Magic Stick</option>
+        <option value="NemesisOrb">Nemesis Orb</option>
+        <option value="Scepter">Scepter</option>
+        <option value="SpiritStaff">Spirit Staff</option>
+        <option value="Fang">Fang</option>
+        <option value="ColossalBow">Colossal Bow</option>
+        <option value="GnasherBow">Gnasher Bow</option>
+        <option value="Kunai">Kunai</option>
+        <option value="QuickBow">Quick Bow</option>
+        <option value="RecurveBow">Recurve Bow</option>
+        <option value="Shuriken">Shuriken</option>
+        <option value="Tendril">Tendril</option>
+        <option value="Tomahawk">Tomahawk</option>
+        <option value="Tribow">Tri-bow</option>
+        <option value="TrinityBow">Trinity Bow</option>
+        <option value="Warbow">Warbow</option>
+    </optgroup>
+ 
+    <!-- Chestpiece options group -->
+    <optgroup label="Chestpiece">
+        <option value="BrodC">Brod-C</option>
+        <option value="Cloak">Cloak</option>
+        <option value="DefenderC">Defender-C</option>
+        <option value="DivingC">Diving-C</option>
+        <option value="DragonC">Dragon-C</option>
+        <option value="FanaticC">Fanatic-C</option>
+        <option value="GauntletC">Gauntlet-C</option>
+        <option value="GreedC">Greed-C</option>
+        <option value="HeavyC">Heavy-C</option>
+        <option value="MagicianC">Magician-C</option>
+        <option value="MajesticC">Majestic-C</option>
+        <option value="MinerC">Miner-C</option>
+        <option value="MonsterC">Monster-C</option>
+        <option value="RoninC">Ronin-C</option>
+        <option value="RusticC">Rustic-C</option>
+        <option value="SentinelC">Sentinel-C</option>
+        <option value="SerpentC">Serpent-C</option>
+        <option value="WarlockC">Warlock-C</option>
+    </optgroup>
+ 
+    <!-- Helmet options group -->
+    <optgroup label="Helmet">
+        <option value="BrodH">Brod-H</option>
+        <option value="DefenderH">Defender-H</option>
+        <option value="DivingH">Diving-H</option>
+        <option value="DragonH">Dragon-H</option>
+        <option value="FanaticH">Fanatic-H</option>
+        <option value="FlameH">Flame-H</option>
+        <option value="GauntletH">Gauntlet-H</option>
+        <option value="GreedH">Greed-H</option>
+        <option value="GustafsMask">Gustaf's Mask</option>
+        <option value="HeavyH">Heavy-H</option>
+        <option value="MagicianH">Magician-H</option>
+        <option value="MajesticH">Majestic-H</option>
+        <option value="MinerH">Miner-H</option>
+        <option value="MonsterH">Monster-H</option>
+        <option value="RoninH">Ronin-H</option>
+        <option value="RusticH">Rustic-H</option>
+        <option value="SentinelH">Sentinel-H</option>
+        <option value="SerpentH">Serpent-H</option>
+        <option value="SnowHat">Snow Hat</option>
+        <option value="WarlockH">Warlock-H</option>
+    </optgroup>
+</select>
+    </td></tr>
+ 
+    <tr><td>
+    <label for="rarity">Rarity:</label>
+    </td><td>
+    <select id="rarity">
+        <option value="Basic">Basic</option>
+        <option value="Common">Common</option>
+        <option value="Uncommon">Uncommon</option>
+        <option value="Epic">Epic</option>
+        <option value="Legendary">Legendary</option>
+        <option value="Rogue">Rogue</option>
+        <option value="Mythic">Mythic</option>
+        <option value="Ancient">Ancient</option>
+        <option value="Galactic">Galactic</option>
+    </select>
+    </td></tr>
+    <tr><td>
+    <label for="level">Level:</label>
+    </td><td>
+    <!-- Script to populate kept breaking, so levels are hardcoded in -->
+    <select id="level">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <option value="32">32</option>
+        <option value="33">33</option>
+        <option value="34">34</option>
+        <option value="35">35</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+        <option value="44">44</option>
+        <option value="45">45</option>
+        <option value="46">46</option>
+        <option value="47">47</option>
+        <option value="48">48</option>
+        <option value="49">49</option>
+        <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
+        <option value="57">57</option>
+        <option value="58">58</option>
+        <option value="59">59</option>
+        <option value="60">60</option>
+        <option value="61">61</option>
+        <option value="62">62</option>
+        <option value="63">63</option>
+        <option value="64">64</option>
+        <option value="65">65</option>
+        <option value="66">66</option>
+        <option value="67">67</option>
+        <option value="68">68</option>
+        <option value="69">69</option>
+        <option value="70">70</option>
+        <option value="71">71</option>
+        <option value="72">72</option>
+        <option value="73">73</option>
+        <option value="74">74</option>
+        <option value="75">75</option>
+        <option value="76">76</option>
+        <option value="77">77</option>
+        <option value="78">78</option>
+        <option value="79">79</option>
+        <option value="80">80</option>
+        <option value="81">81</option>
+        <option value="82">82</option>
+        <option value="83">83</option>
+        <option value="84">84</option>
+        <option value="85">85</option>
+        <option value="86">86</option>
+        <option value="87">87</option>
+        <option value="88">88</option>
+        <option value="89">89</option>
+        <option value="90">90</option>
+        <option value="91">91</option>
+        <option value="92">92</option>
+        <option value="93">93</option>
+        <option value="94">94</option>
+        <option value="95">95</option>
+        <option value="96">96</option>
+        <option value="97">97</option>
+        <option value="98">98</option>
+        <option value="99">99</option>
+        <option value="100">100</option>
+        <option value="101">101</option>
+        <option value="102">102</option>
+        <option value="103">103</option>
+        <option value="104">104</option>
+        <option value="105">105</option>
+        <option value="106">106</option>
+        <option value="107">107</option>
+        <option value="108">108</option>
+        <option value="109">109</option>
+        <option value="110">110</option>
+    </select>
+    </td></tr>
+    </table>
+ 
+    <h2>Stats</h2>
+    <table id="Results">
+        <thead>
+            <tr>
+                <th>Stat</th>
+                <th>Minimum</th>
+                <th>Maximum</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added dynamically here -->
+        </tbody>
+    </table>
+ 
+<script>
+    // Constant values for each rarity
+    const rarityValues = {
+        "Basic": 0,
+        "Common": 1,
+        "Uncommon": 2,
+        "Epic": 3,
+        "Legendary": 4,
+        "Rogue": 5,
+        "Mythic": 6,
+        "Ancient": 7,
+        "Galactic": 8
+    };
+ 
+    // This section has all equipment modifiers. It is case sensitive. 
+    const equipmentStats = {
+        Longsword: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.2, maxx: 0.25, mins: 10, maxs: 200, percentage: 25 },
+            { stat: "Critical Damage", minx: 1, maxx: 1.5, mins: 50, maxs: 200, percentage: 25 }
+        ],
+
+        Cleaver: [
+            { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 }
+        ],
+
+        Axe: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Bleed", minx: 0.02, maxx: 0.03, mins: 1, maxs: 3, percentage: 80 },
+            { stat: "Bleed Chance", minx: 0.4, maxx: 0.5, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        Greatsword: [
+            { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 7, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.35, maxx: 0.4, mins: 500, maxs: 1000, percentage: 100 },
+            { stat: "Berserk", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 50 },
+            { stat: "Stun Chance", minx: 0.25, maxx: 0.3, mins: 100, maxs: 500, percentage: 25 }
+        ],
+
+        Dagger: [
+            { stat: "Damage", minx: 0.01, maxx: 0.03, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.5, maxx: 0.6, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Critical Damage", minx: 2, maxx: 3, mins: 1000, maxs: 2000, percentage: 50 }
+        ],
+
+        Pickaxe: [
+            { stat: "Damage", minx: 0.1, maxx: 0.15, mins: 1, maxs: 4, percentage: 100 },
+            { stat: "Double Ore", minx: 1, maxx: 1.5, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Triple Ore", minx: 0, maxx: 1, mins: 100, maxs: 250, percentage: 25 },
+            { stat: "Mining", minx: 0, maxx: 0.0003, mins: 1, maxs: 1, percentage: 75 }
+        ],
+
+        BattleAxe: [
+            { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Bleed", minx: 0.03, maxx: 0.07, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Bleed Chance", minx: 0.5, maxx: 0.6, mins: 100, maxs: 400, percentage: 100 },
+            { stat: "Berserk", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 25 },
+            { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
+        ],
+
+        Mallet: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Knockback", minx: 0.25, maxx: 0.3, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        JaggedBlade: [
+            { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.4, maxx: 0.5, mins: 100, maxs: 200, percentage: 100 },
+            { stat: "Critical Damage", minx: 1, maxx: 1.5, mins: 200, maxs: 500, percentage: 50 },
+            { stat: "Looting", minx: 0, maxx: 0.0002, mins: 1, maxs: 1, percentage: 25 }
+        ],
+
+        Splitter: [
+            { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Bleed", minx: 0.03, maxx: 0.07, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Bleed Chance", minx: 0.5, maxx: 0.65, mins: 100, maxs: 400, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.3, maxx: 0.5, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        Scimitar: [
+            { stat: "Damage", minx: 0.175, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.3, maxx: 0.4, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Critical Damage", minx: 1, maxx: 1.5, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Poison Chance", minx: 0.15, maxx: 0.3, mins: 100, maxs: 500, percentage: 75 }
+        ],
+
+        Gladius: [
+            { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 3, maxs: 7, percentage: 100 },
+            { stat: "Crit 2 Combo", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 90 },
+            { stat: "Critical Damage", minx: 0.75, maxx: 1.4, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Stun Chance", minx: 0.2, maxx: 0.3, mins: 100, maxs: 500, percentage: 25 }
+        ],
+
+        Crusher: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.5, maxx: 1, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Knockback", minx: 0.25, maxx: 0.45, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Crit 3 Combo", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 }
+        ],
+
+        GreaterPickaxe: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 4, percentage: 100 },
+            { stat: "Triple Ore", minx: 0, maxx: 1, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Quad Ore", minx: 0, maxx: 0.4, mins: 100, maxs: 250, percentage: 50 },
+            { stat: "Mining", minx: 0, maxx: 0.0003, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 }
+        ],
+
+        DivineBlade: [
+            { stat: "Damage", minx: 0.1, maxx: 0.1725, mins: 1, maxs: 4, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.2, maxx: 0.3, mins: 100, maxs: 1000, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.05, maxx: 0.6, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Self Damage", minx: 0, maxx: 0, mins: 0, maxs: 1000, percentage: 95 }
+        ],
+
+        Slicer: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Bleed", minx: 0.03, maxx: 0.2, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Bleed Chance", minx: 0.3, maxx: 0.4, mins: 100, maxs: 400, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.1, maxx: 0.15, mins: 100, maxs: 250, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Sweeping", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
+        ],
+
+        Smasher: [
+            { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.075, maxx: 1.125, mins: 100, maxs: 1000, percentage: 50 },
+            { stat: "Knockback 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 },
+            { stat: "Crit 3 Combo", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        ChargedSpear: [
+            { stat: "Damage", minx: 0.25, maxx: 0.375, mins: 3, maxs: 9, percentage: 100 },
+            { stat: "Paralysis 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
+        ],
+
+        MagicStick: [
+            { stat: "Mp Damage", minx: 0.1, maxx: 0.15, mins: 3, maxs: 6, percentage: 100 }
+        ],
+
+        LargeRod: [
+            { stat: "Mp Damage", minx: 0.2, maxx: 0.22, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Mana", minx: 0.2, maxx: 0.3, mins: 10, maxs: 20, percentage: 60 }
+        ],
+
+        Scepter: [
+            { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
+            { stat: "Multi-Atk", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 50 }
+        ],
+
+        SpiritStaff: [
+            { stat: "Mp Damage", minx: 0.25, maxx: 0.3, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Mana", minx: 0.15, maxx: 0.2, mins: 10, maxs: 50, percentage: 100 },
+            { stat: "Life Heal", minx: 0.3, maxx: 0.35, mins: 100, maxs: 500, percentage: 80 },
+            { stat: "Stun Chance", minx: 0.25, maxx: 0.3, mins: 100, maxs: 500, percentage: 30 }
+        ],
+
+        JadeStaff: [
+            { stat: "Mp Damage", minx: 0.15, maxx: 0.2, mins: 2, maxs: 5, percentage: 100 },
+            { stat: "Mana", minx: 0.25, maxx: 0.3, mins: 10, maxs: 40, percentage: 100 },
+            { stat: "Paralysis Chance", minx: 0.2, maxx: 0.28, mins: 100, maxs: 500, percentage: 70 },
+            { stat: "Cast Surge", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
+        ],
+
+        LongStaff: [
+            { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.25, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Cast Surge", minx: 0.15, maxx: 0.25, mins: 1000, maxs: 2500, percentage: 50 }
+        ],
+
+        CrystalStaff: [
+            { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
+            { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
+            { stat: "Cast Surge", minx: 0.2, maxx: 0.3, mins: 500, maxs: 1500, percentage: 50 },
+            { stat: "Mana Efficiency", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
+        ],
+
+        FrailStaff: [
+            { stat: "Mp Damage", minx: 0.15, maxx: 0.2, mins: 4, maxs: 8, percentage: 100 },
+            { stat: "Spell Damage", minx: 0.3, maxx: 0.6, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Cast Surge", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
+        ],
+
+        NemesisOrb: [
+            { stat: "Mp Damage", minx: 0.2, maxx: 0.32, mins: 2, maxs: 10, percentage: 100 },
+            { stat: "Mana", minx: 0.3, maxx: 0.35, mins: 10, maxs: 50, percentage: 100 },
+            { stat: "Cast Surge", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Controller", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        BeholderWand: [
+            { stat: "Mp Damage", minx: 0.25, maxx: 0.33, mins: 4, maxs: 8, percentage: 100 },
+            { stat: "Mana", minx: 0.15, maxx: 0.2, mins: 10, maxs: 50, percentage: 100 },
+            { stat: "Boss Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 250, percentage: 100 },
+            { stat: "Cast Surge", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 3, percentage: 50 }
+        ],
+
+        QuickBow: [
+            { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 1, maxs: 2, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.35, maxx: 0.45, mins: 500, maxs: 1000, percentage: 25 },
+            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 10 }
+        ],
+
+        Tribow: [
+            { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 1, maxs: 8, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 1, maxs: 2, percentage: 100 },
+            { stat: "Ricochet", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 },
+            { stat: "Stun Chance", minx: 0.12, maxx: 0.2, mins: 100, maxs: 500, percentage: 25 }
+        ],
+
+        RecurveBow: [
+            { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 4, maxs: 9, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 4, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.2, maxx: 0.3, mins: 1000, maxs: 2000, percentage: 50 },
+            { stat: "Critical Damage", minx: 1.5, maxx: 2, mins: 1000, maxs: 2000, percentage: 75 }
+        ],
+
+        Shuriken: [
+            { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Ricochet", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 },
+            { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Scatter", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        Tomahawk: [
+            { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Bleed", minx: 0.01, maxx: 0.02, mins: 1, maxs: 3, percentage: 75 },
+            { stat: "Bleed Chance", minx: 0.25, maxx: 0.3, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Stun Chance", minx: 0, maxx: 0, mins: 700, maxs: 1000, percentage: 25 },
+            { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 }
+        ],
+
+        Warbow: [
+            { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 4, maxs: 9, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 4, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.2, maxx: 0.3, mins: 1000, maxs: 2000, percentage: 100 },
+            { stat: "Critical Damage", minx: 1.5, maxx: 2, mins: 1000, maxs: 2000, percentage: 75 },
+            { stat: "Piercing", minx: 0, maxx: 0, mins: 1, maxs: 4, percentage: 75 }
+        ],
+
+        Kunai: [
+            { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 5, percentage: 100 },
+            { stat: "Ricochet", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Critical Damage", minx: 1, maxx: 1.5, mins: 100, maxs: 1000, percentage: 50 },
+            { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 }
+        ],
+
+        ColossalBow: [
+            { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 4, maxs: 9, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 4, maxs: 6, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.2, maxx: 0.3, mins: 500, maxs: 2000, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.05, maxx: 0.125, mins: 100, maxs: 1000, percentage: 75 },
+            { stat: "AOE", minx: 0, maxx: 0, mins: 1, maxs: 2, percentage: 75 }
+        ],
+
+        TrinityBow: [
+            { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 1, maxs: 8, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 3, percentage: 100 },
+            { stat: "Critical Chance", minx: 0.15, maxx: 0.25, mins: 100, maxs: 1000, percentage: 100 },
+            { stat: "Critical Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Quick Hit 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
+        ],
+
+        GnasherBow: [
+            { stat: "Damage", minx: 0.1, maxx: 0.125, mins: 1, maxs: 8, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 2, maxs: 4, percentage: 100 },
+            { stat: "Ricochet", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Poison Chance", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Scatter", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
+        ],
+
+        Tendril: [
+            { stat: "Damage", minx: 0.05, maxx: 0.07, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 2, maxs: 3, percentage: 100 },
+            { stat: "Pull Chance", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 100 }
+        ],
+
+        Fang: [
+            { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 5, percentage: 100 },
+            { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 },
+            { stat: "Poison Chance", minx: 0.2, maxx: 0.25, mins: 500, maxs: 1000, percentage: 100 }
+        ],
+
+        RusticC: [
+            { stat: "Health", minx: 0.3, maxx: 0.5, mins: 10, maxs: 50, percentage: 100 },
+            { stat: "Extra Coin", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 5 }
+        ],
+
+        DefenderC: [
+            { stat: "Health", minx: 0.5, maxx: 0.75, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.4, mins: 10, maxs: 100, percentage: 50 }
+        ],
+
+        BrodC: [
+            { stat: "Health", minx: 0.6, maxx: 0.8, mins: 60, maxs: 100, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.2, mins: 100, maxs: 300, percentage: 80 },
+            { stat: "+1 Stew Output", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 40 }
+        ],
+
+        GauntletC: [
+            { stat: "Health", minx: 0.65, maxx: 0.8, mins: 30, maxs: 40, percentage: 100 },
+            { stat: "Armor", minx: 0.3, maxx: 0.5, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Double Ore", minx: 1, maxx: 1.5, mins: 100, maxs: 500, percentage: 10 }
+        ],
+
+        MajesticC: [
+            { stat: "Health", minx: 0.8, maxx: 1, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 100 }
+        ],
+
+        MinerC: [
+            { stat: "Health", minx: 0.7, maxx: 0.9, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 100 },
+            { stat: "Ore Explorer", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }
+        ],
+
+        HeavyC: [
+            { stat: "Health", minx: 0.9, maxx: 1.1, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 100 },
+            { stat: "Reflect Chance", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }
+        ],
+
+        GreedC: [
+            { stat: "Health", minx: 0.7, maxx: 0.9, mins: 20, maxs: 40, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Double Item Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 50 }
+        ],
+
+        MagicianC: [
+            { stat: "Health", minx: 0.5, maxx: 0.6, mins: 10, maxs: 30, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 }
+        ],
+
+        MonsterC: [
+            { stat: "Health", minx: 0.8, maxx: 1, mins: 20, maxs: 50, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Boss Damage", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 }
+        ],
+
+        FanaticC: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 20, percentage: 100 },
+            { stat: "Max Barrier", minx: 0.25, maxx: 0.35, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Haste Damage", minx: 0.05, maxx: 0.15, mins: 100, maxs: 200, percentage: 50 }
+        ],
+
+        SerpentC: [
+            { stat: "Health", minx: 0.2, maxx: 0.3, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 100, maxs: 400, percentage: 75 },
+            { stat: "Free Spellcast", minx: 0.05, maxx: 0.075, mins: 100, maxs: 200, percentage: 50 }
+        ],
+
+        Cloak: [
+            { stat: "Health", minx: 0.3, maxx: 0.4, mins: 10, maxs: 40, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 50 },
+            { stat: "Haste Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Haste Chance", minx: 0.03, maxx: 0.04, mins: 0, maxs: 200, percentage: 75 }
+        ],
+
+        WarlockC: [
+            { stat: "Health", minx: 0.4, maxx: 0.5, mins: 50, maxs: 100, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.12, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Paralysis Chance", minx: 0.2, maxx: 0.25, mins: 100, maxs: 250, percentage: 75 }
+        ],
+
+        RoninC: [
+            { stat: "Health", minx: 0.4, maxx: 0.5, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.2, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Elite Damage", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Poison Damage", minx: 0.15, maxx: 0.25, mins: 100, maxs: 1000, percentage: 50 }
+        ],
+
+        DragonC: [
+            { stat: "Health", minx: 0.8, maxx: 0.9, mins: 30, maxs: 40, percentage: 100 },
+            { stat: "Armor", minx: 0.3, maxx: 0.4, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Knockback Resistance", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 }
+        ],
+
+        SentinelC: [
+            { stat: "Health", minx: 0.8, maxx: 1, mins: 30, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Boss Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Hp %", minx: 0.2, maxx: 0.3, mins: 500, maxs: 100, percentage: 25 }
+        ],
+
+        DivingC: [
+            { stat: "Health", minx: 0.8, maxx: 1, mins: 30, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Oxygen Boost", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
+        ],
+
+        RusticH: [
+            { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 }
+        ],
+        DefenderH: [
+            { stat: "Health", minx: 0.075, maxx: 0.1, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Hp Efficiency", minx: 1, maxx: 2, mins: 500, maxs: 1000, percentage: 50 }
+        ],
+
+        BrodH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 40, percentage: 100 }
+        ],
+
+        GauntletH: [
+            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.09, mins: 100, maxs: 400, percentage: 80 },
+            { stat: "Endure", minx: 0.5, maxx: 0.75, mins: 100, maxs: 500, percentage: 25 }
+        ],
+
+        MajesticH: [
+            { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 }
+        ],
+
+        GustafsMask: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 20, percentage: 100 },
+            { stat: "Poison Reduction", minx: 0.2, maxx: 0.6, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Unbinding", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 },
+            { stat: "Panic Resist", minx: 0.04, maxx: 0.05, mins: 100, maxs: 500, percentage: 50 }
+        ],
+
+        SnowHat: [
+            { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 },
+            { stat: "Snow Day", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
+        ],
+
+        HeavyH: [
+            { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Reflect Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
+        ],
+
+        GreedH: [
+            { stat: "Health", minx: 0.15, maxx: 0.2, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Coin Magnet", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 75 }
+        ],
+
+        MagicianH: [
+            { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Spell Damage", minx: 0.1, maxx: 0.2, mins: 200, maxs: 500, percentage: 75 }
+        ],
+
+        MonsterH: [
+            { stat: "Health", minx: 0.15, maxx: 0.25, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Elite Damage", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 }
+        ],
+
+        FanaticH: [
+            { stat: "Health", minx: 0.05, maxx: 0.1, mins: 2, maxs: 6, percentage: 100 },
+            { stat: "Max Barrier", minx: 0.15, maxx: 0.25, mins: 100, maxs: 250, percentage: 75 },
+            { stat: "Unbinding", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 }
+        ],
+
+        SerpentH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Mana %", minx: 0.05, maxx: 0.075, mins: 100, maxs: 200, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 250, percentage: 75 },
+            { stat: "Spellcast Marty", minx: 0.1, maxx: 0.25, mins: 100, maxs: 500, percentage: 75 }
+        ],
+
+        WarlockH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 250, percentage: 100 },
+            { stat: "Mana Efficiency", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 },
+            { stat: "Free Spellcast", minx: 0.05, maxx: 0.06, mins: 100, maxs: 250, percentage: 50 }
+        ],
+
+        RoninH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 },
+            { stat: "Throw Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Recycle Throwable", minx: 0.03, maxx: 0.04, mins: 50, maxs: 200, percentage: 25 }
+        ],
+
+        FlameH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 4, maxs: 10, percentage: 100 },
+            { stat: "Burn Chance", minx: 0.2, maxx: 0.25, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Burn Damage", minx: 0.3, maxx: 0.6, mins: 4, maxs: 10, percentage: 100 }
+        ],
+
+        DragonH: [
+            { stat: "Health", minx: 0.1, maxx: 0.15, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.09, mins: 100, maxs: 400, percentage: 100 },
+            { stat: "Stun Resistance", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 50 }
+        ],
+
+        SentinelH: [
+            { stat: "Health", minx: 0.25, maxx: 0.35, mins: 20, maxs: 30, percentage: 100 },
+            { stat: "Armor", minx: 0.5, maxx: 1, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Endure", minx: 0.5, maxx: 0.85, mins: 100, maxs: 250, percentage: 75 }
+        ],
+
+        MinerH: [
+            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Ore Explorer", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
+        ],
+
+        DivingH: [
+            { stat: "Health", minx: 0.25, maxx: 0.35, mins: 30, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.05, maxx: 0.09, mins: 100, maxs: 400, percentage: 100 },
+            { stat: "Water Breathing", minx: 0.2, maxx: 0.3, mins: 100, maxs: 500, percentage: 50 }
+        ]
+    };
+ 
+    // Function to get the rarity value based on selected rarity
+    function getRarityValue() {
+        const selectedRarity = document.getElementById('rarity').value;
+        return rarityValues[selectedRarity] || null; // Return the value of the selected rarity
+    }
+ 
+// Function to update the Results table header and contents based on Equipment selection
+function updateResultsHeader() {
+    const equipmentSelect = document.getElementById('equipment');
+    const selectedEquipment = equipmentSelect.value;
+    const resultTableHeader = document.querySelector('#Results thead');
+    const resultTableBody = document.querySelector('#Results tbody');
+    
+    // Clear previous rows
+    resultTableBody.innerHTML = '';
+
+    // Reset header
+    resultTableHeader.innerHTML = `<tr>
+        <th>Stat</th>
+        <th>Minimum</th>
+        <th>Maximum</th>
+        <th>%</th>
+    </tr>`;
+
+    // List of stats that should always display as percentages
+    const percentageStats = [
+        "Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", 
+        "Bleed Chance", "Berserk", "Stun Chance", "Armor", "Hp Efficiency", 
+        "Double Ore", "Endure", "Poison Reduction", "Triple Ore", 
+        "Knockback", "Life Heal", "Mana Efficiency", "Paralysis Chance", 
+        "Cast Surge", "Ore Explorer", "Reflect Chance", "Spell Damage", 
+        "Elite Damage", "Boss Damage", "Poison Chance", "Quad Ore", "Max Barrier", 
+        "Haste Damage", "Self Damage", "Spellcast Marty", "Free Spellcast", 
+        "Haste Chance", "Double Item Chance", "Mana %", "Pull Chance", 
+        "Stun Resistance", "Throw Damage", "Poison Damage", "Knockback Resistance", 
+        "Oxygen Boost", "Water Breathing", "Panic Resist", "Recycle Throwable", "Hp %"
+    ];
+
+    // Get rarity value
+    const rarity = getRarityValue();
+    // Get level from dropdown
+    const level = parseInt(document.getElementById('level').value);
+
+    // Retrieve the selected equipment stats
+    let equipment = equipmentStats[selectedEquipment] || [];
+
+    if (equipment.length === 0) {
+        resultTableBody.innerHTML = `<tr><td colspan="4">No results for selected equipment.</td></tr>`;
+        return; // Exit if no equipment found
+    }
+// Paralysis 3, Quick Hit 2, Crit 2 Combo, Knockback 3, Controller
+// List of stats that should be rounded to whole numbers
+const roundStats = [
+    "Health", 
+    "Damage", 
+    "Mana", 
+    "Mp Damage", 
+    "Extra Coin", 
+    "Burn Damage", 
+    "Bleed", 
+    "+1 Stew Output", 
+    "Multi-Atk", 
+    "Quick Breaking", 
+    "Unbinding", 
+    "Range", 
+    "Ricochet", 
+    "Mining", 
+    "Snow Day", 
+    "Amount", 
+    "Scatter", 
+    "Sweeping", 
+    "Looting", 
+    "Coin Magnet", 
+    "Piercing", 
+    "Crit 3 Combo", 
+    "Quick Hit 3", 
+    "Crit 2 Combo", 
+    "Knockback 3", 
+    "Controller", 
+    "Paralysis 3", 
+    "Quick Hit 2", 
+    "AOE"
+    ];
+
+    // Object defining minimum values for certain stats
+    const minValues = {
+        "Extra Coin": 1,
+        "+1 Stew Output": 1,
+        "Multi-Atk": 1,
+        "Quick Breaking": 1,
+        "Unbinding": 1,
+        "Ricochet": 1,
+        "Mining": 1,
+        "Snow Day": 1,
+        "Scatter": 1,
+        "Sweeping": 1,
+        "Looting": 1,
+        "Coin Magnet": 1,
+        "Piercing": 1,
+        "Crit 3 Combo": 1,
+        "Quick Hit 3": 1,
+        "Crit Combo 2": 1,
+        "Knockback 3": 1,
+        "Controller": 1,
+        "Paralysis 3": 1,
+        "Quick Hit 2": 1,
+        "AOE": 1,
+        // Ranged weapons
+        "QuickBow": { "Range": 2 },
+        "Tribow": { "Range": 3 },
+        "RecurveBow": { "Range": 4 },
+        "Shuriken": { "Range": 2 },
+        "Tomahawk": { "Range": 2 },
+        "Warbow": { "Range": 4 },
+        "Kunai": { "Range": 3 },
+        "ColossalBow": { "Range": 4 },
+        "TrinityBow": { "Range": 3 },
+        "GnasherBow": { "Range": 2 },
+        "Tendril": { "Range": 3 },
+        "Fang": { "Range": 3 }
+    };
+
+    // Object defining maximum values for certain stats
+    const maxValues = {
+        "Critical Chance": 100,
+        "Extra Coin": 1,
+        "Lifesteal": 100,
+        "Burn Chance": 100,
+        "Bleed Chance": 100,
+        "Berserk Damage": 300,
+        "Stun Chance": 50,
+        "Hp Efficiency": 65,
+        "+1 Stew Output": 1,
+        "Multi-Atk": 3,
+        "Quick Breaking": 1,
+        "Double Ore": 100,
+        "Endure": 50,
+        "Unbinding": 1,
+        "Poison Reduction": 50,
+        "Ricochet": 1,
+        "Triple Ore": 100,
+        "Mining": 4,
+        "Knockback": 100,
+        "Snow Day": 1,
+        "Scatter": 1,
+        "Sweeping": 1,
+        "Looting": 4,
+        "Life Heal": 100,
+        "Mana Efficiency": 30,
+        "Paralysis Chance": 50,
+        "Cast Surge": 300,
+        "Ore Explorer": 100,
+        "Reflect Chance": 15,
+        "Coin Magnet": 2,
+        "Spell Damage": 200,
+        "Elite Damage": 10,
+        "Boss Damage": 10,
+        "Piercing": 4,
+        "Poison Chance": 100,
+        "Crit 3 Combo": 1,
+        "Quad Ore": 100,
+        "Max Barrier": 50,
+        "Haste Damage": 30,
+        "Self Damage": 10,
+        "Spellcast Marty": 40,
+        "Free Spellcast": 10,
+        "Haste Chance": 100,
+        "Quick Hit 3": 1,
+        "Double Item Chance": 100,
+        "Crit 2 Combo": 1,
+        "Knockback 3": 1,
+        "Controller": 1,
+        "Pull Chance": 100,
+        "Stun Resistance": 100,
+        "Paralysis 3": 1,
+        "Quick Hit 2": 1,
+        "Knockback Resistance": 100,
+        "Water Breathing": 100,
+        "Panic Resist": 50,
+        "Recycle Throwable": 25,
+        "Hp %": 20,
+        "AOE": 2,
+        // Armor caps
+        "RusticC": { "Armor": 15 }, "RusticH": { "Armor": 5 },
+        "BrodC": { "Armor": 15 }, "BrodH": { "Armor": 5 },
+        "GauntletC": { "Armor": 15 }, "GauntletH": { "Armor": 5 },
+        "MajesticC": { "Armor": 15 }, "MajesticH": { "Armor": 5 },
+        "MinerC": { "Armor": 15 }, "MinerH": { "Armor": 5 },
+        "HeavyC": { "Armor": 15 }, "HeavyH": { "Armor": 5 },
+        "GreedC": { "Armor": 15 }, "GreedH": { "Armor": 5 },
+        "MagicianC": { "Armor": 15 }, "MagicianH": { "Armor": 5 },
+        "MonsterC": { "Armor": 15 }, "MonsterH": { "Armor": 5 },
+        "FanaticC": { "Armor": 15 }, "FanaticH": { "Armor": 5 },
+        "SerpentC": { "Armor": 15 }, "SerpentH": { "Armor": 5 },
+        "WarlockC": { "Armor": 15 }, "WarlockH": { "Armor": 5 },
+        "DragonC": { "Armor": 15 }, "DragonH": { "Armor": 5 },
+        "SentinelC": { "Armor": 15 }, "SentinelH": { "Armor": 5 },
+        "DivingC": { "Armor": 15 }, "DivingH": { "Armor": 5 },
+        "RoninC": { "Armor": 15 }, "RoninH": { "Armor": 5 },
+        "Cloak": { "Armor": 15 },
+        "GustafsMask": { "Armor": 5 },
+        "SnowHat": { "Armor": 5 },
+        "Flame": { "Armor": 5 },
+        // Ranged weapons
+        "QuickBow": { "Range": 3 },
+        "Tribow": { "Range": 4 },
+        "RecurveBow": { "Range": 5 },
+        "Shuriken": { "Range": 4 },
+        "Tomahawk": { "Range": 4 },
+        "Warbow": { "Range": 5 },
+        "Kunai": { "Range": 5 },
+        "ColossalBow": { "Range": 5 },
+        "TrinityBow": { "Range": 3 },
+        "GnasherBow": { "Range": 4 },
+        "Tendril": { "Range": 3 },
+        "Fang": { "Range": 5 }
+    };
+
+// Loop through equipment stats
+equipment.forEach(item => {
+    let minResult, maxResult;
+
+    // Calculate base values
+    let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+                  item.mins + ((item.maxs - item.mins) / 2 * rarity);
+    let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+                  item.maxs + ((item.maxs - item.mins) / 2 * rarity);
+
+//    if (item.stat === "Armor") {
+//        logToPage("Before capping:", { minCalc, maxCalc });
+//    }
+
+    // Round values if the stat is in the roundStats list
+    if (roundStats.includes(item.stat)) {
+        minResult = Math.round(minCalc);
+        maxResult = Math.round(maxCalc);
+    } else { 
+        // Keep decimal places for other stats
+        minResult = (minCalc / 100).toFixed(2);
+        maxResult = (maxCalc / 100).toFixed(2);
+    }
+
+    // Apply max value cap if the stat has a limit
+    if (maxValues[item.stat] !== undefined) {
+        minResult = Math.min(minResult, maxValues[item.stat]);
+        maxResult = Math.min(maxResult, maxValues[item.stat]);
+    }
+
+//    if (maxValues[item.stat] !== undefined) {
+//        logToPage(`Capping Armor: Before -> min: ${minResult}, max: ${maxResult}`);
+//        minResult = Math.min(minResult, maxValues[item.stat]);
+//        maxResult = Math.min(maxResult, maxValues[item.stat]);
+//        logToPage(`Capping Armor: After -> min: ${minResult}, max: ${maxResult}`);
+//    }
+
+    // Add percentage symbol if stat should display as percentage
+    if (percentageStats.includes(item.stat)) {
+        minResult += '%';
+        maxResult += '%';
+    }
+
+// Now format the numbers using toLocaleString to add separators
+// (Convert them to numbers if they might be strings)
+// minResult = Number(minResult).toLocaleString();
+// maxResult = Number(maxResult).toLocaleString();
+
+    // Add result row to table
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${item.stat}</td><td>${minResult}</td><td>${maxResult}</td><td>${item.percentage}%</td>`;
+    resultTableBody.appendChild(row);
+});
+}
+
+    // Event listener for changes in selection
+    document.getElementById('equipment').addEventListener('change', updateResultsHeader);
+    document.getElementById('rarity').addEventListener('change', updateResultsHeader);
+    document.getElementById('level').addEventListener('change', updateResultsHeader);
+
+    // Set default selections and update table on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("equipment").value = "Axe";
+        document.getElementById("rarity").value = "Basic";
+        document.getElementById("level").value = "1";
+    
+        updateResultsHeader(); // Populate the table immediately
+    });
+
+    // Change separator and decimal style based on local
+    function formatNumber(value) {
+        // Detect user's locale
+        const userLocale = navigator.language || 'en-US';
+
+        // Format the number
+        return new Intl.NumberFormat(userLocale).format(value);
+    }
+
+    // Function to log messages to the page
+//    function logToPage(message) {
+//        const logContainer = document.getElementById('logContainer');
+//        const logMessage = document.createElement('p');
+//        logMessage.textContent = message;
+//        logContainer.appendChild(logMessage);
+
+        // Optionally scroll to the bottom of the log
+//        logContainer.scrollTop = logContainer.scrollHeight;
+//    }
+
+    </script>
+</body>
+</html>
