@@ -215,7 +215,7 @@
         <option value="SnowHat">Snow Hat</option>
         <option value="WarlockH">Warlock-H</option>
     </optgroup>
-</select>
+    </select>
     </td></tr>
  
     <tr><td>
@@ -233,6 +233,7 @@
         <option value="Galactic">Galactic</option>
     </select>
     </td></tr>
+
     <tr><td>
     <label for="level">Level:</label>
     </td><td>
@@ -367,7 +368,7 @@
         </tbody>
     </table>
  
-<script>
+    <script>
     // Constant values for each rarity
     const rarityValues = {
         "Basic": 0,
@@ -1049,7 +1050,7 @@ function updateResultsHeader() {
         "Spell Damage": 200,
         "Elite Damage": 10,
         "Boss Damage": 10,
-        "Piercing": 2,
+        "Piercing": 4,
         "Poison Chance": 30,
         "Crit 3 Combo": 1,
         "Quad Ore": 100,
@@ -1193,54 +1194,43 @@ function updateResultsHeader() {
         WarlockH: { minr: 1, maxr: 2 }
     };
 
-// Loop through equipment stats
-equipment.forEach(item => {
-    let minResult, maxResult;
+    // Loop through equipment stats
+    equipment.forEach(item => {
+        let minResult, maxResult;
 
-    // Calculate base values
-    let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
-                  item.mins + ((item.maxs - item.mins) / 2 * rarity);
-    let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
-                  item.maxs + ((item.maxs - item.mins) / 2 * rarity);
+        // Calculate base values
+        let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+            item.mins + ((item.maxs - item.mins) / 2 * rarity);
+        let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+            item.maxs + ((item.maxs - item.mins) / 2 * rarity);
 
-//    if (item.stat === "Armor") {
-//        logToPage("Before capping:", { minCalc, maxCalc });
-//    }
+        // Round values if the stat is in the roundStats list
+        if (roundStats.includes(item.stat)) {
+            minResult = Math.round(minCalc);
+            maxResult = Math.round(maxCalc);
+        } else { 
+            // Keep decimal places for other stats
+            minResult = (minCalc / 100).toFixed(2);
+            maxResult = (maxCalc / 100).toFixed(2);
+        }
 
-    // Round values if the stat is in the roundStats list
-    if (roundStats.includes(item.stat)) {
-        minResult = Math.round(minCalc);
-        maxResult = Math.round(maxCalc);
-    } else { 
-        // Keep decimal places for other stats
-        minResult = (minCalc / 100).toFixed(2);
-        maxResult = (maxCalc / 100).toFixed(2);
-    }
+        // Apply max value cap if the stat has a limit
+        if (maxValues[item.stat] !== undefined) {
+            minResult = Math.min(minResult, maxValues[item.stat]);
+            maxResult = Math.min(maxResult, maxValues[item.stat]);
+        }
 
-    // Apply max value cap if the stat has a limit
-    if (maxValues[item.stat] !== undefined) {
-        minResult = Math.min(minResult, maxValues[item.stat]);
-        maxResult = Math.min(maxResult, maxValues[item.stat]);
-    }
-
-//    if (maxValues[item.stat] !== undefined) {
-//        logToPage(`Capping Armor: Before -> min: ${minResult}, max: ${maxResult}`);
-//        minResult = Math.min(minResult, maxValues[item.stat]);
-//        maxResult = Math.min(maxResult, maxValues[item.stat]);
-//        logToPage(`Capping Armor: After -> min: ${minResult}, max: ${maxResult}`);
-//    }
-
-    // Add percentage symbol if stat should display as percentage
-    if (percentageStats.includes(item.stat)) {
+        // Add percentage symbol if stat should display as percentage
+        if (percentageStats.includes(item.stat)) {
         minResult += '%';
         maxResult += '%';
-    }
+        }
 
-    // Add result row to table
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${item.stat}</td><td>${minResult}</td><td>${maxResult}</td><td>${item.percentage}%</td>`;
-    resultTableBody.appendChild(row);
-});
+        // Add result row to table
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${item.stat}</td><td>${minResult}</td><td>${maxResult}</td><td>${item.percentage}%</td>`;
+        resultTableBody.appendChild(row);
+    });
 }
 
     // Event listener for changes in selection
@@ -1265,17 +1255,6 @@ equipment.forEach(item => {
         // Format the number
         return new Intl.NumberFormat(userLocale).format(value);
     }
-
-    // Function to log messages to the page
-//    function logToPage(message) {
-//        const logContainer = document.getElementById('logContainer');
-//        const logMessage = document.createElement('p');
-//        logMessage.textContent = message;
-//        logContainer.appendChild(logMessage);
-
-        // Optionally scroll to the bottom of the log
-//        logContainer.scrollTop = logContainer.scrollHeight;
-//    }
 
     </script>
 </body>
