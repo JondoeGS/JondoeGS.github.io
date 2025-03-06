@@ -368,12 +368,21 @@
     </table>
  
 <script>
-
+    // Constant values for each rarity
+    const rarityValues = {
+        "Basic": 0,
+        "Common": 1,
+        "Uncommon": 2,
+        "Epic": 3,
+        "Legendary": 4,
+        "Rogue": 5,
+        "Mythic": 6,
+        "Ancient": 7,
+        "Galactic": 8
+    };
+ 
     // This section has all equipment modifiers. It is case sensitive. 
     const equipmentStats = {
-        
-        // Melee Weapon Stats
-
         Longsword: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
             { stat: "Critical Chance", minx: 0.2, maxx: 0.25, mins: 10, maxs: 200, percentage: 25 },
@@ -497,8 +506,6 @@
             { stat: "Damage", minx: 0.25, maxx: 0.375, mins: 3, maxs: 9, percentage: 100 },
             { stat: "Paralysis 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
         ],
-        
-        // Magic Weapon Stats
 
         MagicStick: [
             { stat: "Mp Damage", minx: 0.1, maxx: 0.15, mins: 3, maxs: 6, percentage: 100 }
@@ -564,8 +571,6 @@
             { stat: "Cast Surge", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 3, percentage: 50 }
         ],
-        
-        // Ranged Weapons Stats
 
         QuickBow: [
             { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
@@ -658,8 +663,6 @@
             { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 },
             { stat: "Poison Chance", minx: 0.2, maxx: 0.25, mins: 500, maxs: 1000, percentage: 100 }
         ],
-        
-        // Chestpiece Stats
 
         RusticC: [
             { stat: "Health", minx: 0.3, maxx: 0.5, mins: 10, maxs: 50, percentage: 100 },
@@ -770,8 +773,6 @@
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Oxygen Boost", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
         ],
-        
-        // Helmet Stats
 
         RusticH: [
             { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 }
@@ -806,12 +807,6 @@
         SnowHat: [
             { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 },
             { stat: "Snow Day", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
-        ],
-
-        MinerH: [
-            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
-            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Ore Explorer", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
         ],
 
         HeavyH: [
@@ -883,48 +878,55 @@
             { stat: "Endure", minx: 0.5, maxx: 0.85, mins: 100, maxs: 250, percentage: 75 }
         ],
 
+        MinerH: [
+            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Ore Explorer", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
+        ],
+
         DivingH: [
             { stat: "Health", minx: 0.25, maxx: 0.35, mins: 30, maxs: 60, percentage: 100 },
             { stat: "Armor", minx: 0.05, maxx: 0.09, mins: 100, maxs: 400, percentage: 100 },
             { stat: "Water Breathing", minx: 0.2, maxx: 0.3, mins: 100, maxs: 500, percentage: 50 }
         ]
-    };		// End of equipment stats
+    };
  
     // Function to get the rarity value based on selected rarity
     function getRarityValue() {
         const selectedRarity = document.getElementById('rarity').value;
         return rarityValues[selectedRarity] || null; // Return the value of the selected rarity
     }
-
-	// Function to update the Results table header and contents based on Equipment selection
-	function updateResultsHeader() {
-    	const equipmentSelect = document.getElementById('equipment');
-    	const selectedEquipment = equipmentSelect.value;
-    	const resultTableHeader = document.querySelector('#Results thead');
-    	const resultTableBody = document.querySelector('#Results tbody');
+ 
+// Function to update the Results table header and contents based on Equipment selection
+function updateResultsHeader() {
+    const equipmentSelect = document.getElementById('equipment');
+    const selectedEquipment = equipmentSelect.value;
+    const resultTableHeader = document.querySelector('#Results thead');
+    const resultTableBody = document.querySelector('#Results tbody');
     
     // Clear previous rows
     resultTableBody.innerHTML = '';
 
-	// Reset header
+    // Reset header
     resultTableHeader.innerHTML = `<tr>
-		<th>Stat</th>
-    	<th>Minimum</th>
+        <th>Stat</th>
+        <th>Minimum</th>
         <th>Maximum</th>
-    	<th>%</th>
+        <th>%</th>
     </tr>`;
 
-	// List of stats that should always display as percentages
+    // List of stats that should always display as percentages
     const percentageStats = [
-		"Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", "Bleed Chance", 
-		"Berserk Damage", "Stun Chance", "Armor", "Hp Efficiency", "Double Ore", "Endure", 
-        "Poison Reduction", "Triple Ore", "Knockback", "Life Heal", "Mana Efficiency", 
-        "Paralysis Chance", "Cast Surge", "Ore Explorer", "Reflect Chance", "Spell Damage", 
+        "Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", 
+        "Bleed Chance", "Berserk Damage", "Stun Chance", "Armor", "Hp Efficiency", 
+        "Double Ore", "Endure", "Poison Reduction", "Triple Ore", 
+        "Knockback", "Life Heal", "Mana Efficiency", "Paralysis Chance", 
+        "Cast Surge", "Ore Explorer", "Reflect Chance", "Spell Damage", 
         "Elite Damage", "Boss Damage", "Poison Chance", "Quad Ore", "Max Barrier", 
-        "Haste Damage", "Self Damage", "Spellcast Marty", "Free Spellcast", "Haste Chance", 
-        "Double Item Chance", "Mana %", "Pull Chance", "Stun Resistance", "Throw Damage", 
-        "Poison Damage", "Knockback Resistance", "Oxygen Boost", "Water Breathing", 
-        "Panic Resist", "Recycle Throwable", "Hp %"
+        "Haste Damage", "Self Damage", "Spellcast Marty", "Free Spellcast", 
+        "Haste Chance", "Double Item Chance", "Mana %", "Pull Chance", 
+        "Stun Resistance", "Throw Damage", "Poison Damage", "Knockback Resistance", 
+        "Oxygen Boost", "Water Breathing", "Panic Resist", "Recycle Throwable", "Hp %"
     ];
 
     // Get rarity value
@@ -943,178 +945,267 @@
 
     // List of stats that should be rounded to whole numbers
     const roundStats = [
-		"Health", "Damage", "Mana", "Mp Damage", "Extra Coin", "Burn Damage", "Bleed", 
-		"+1 Stew Output", "Multi-Atk", "Quick Breaking", "Unbinding", "Range", "Ricochet", 
-		"Mining", "Snow Day", "Amount", "Scatter", "Sweeping", "Looting", "Coin Magnet", 
-		"Piercing", "Crit 3 Combo", "Quick Hit 3", "Crit 2 Combo", "Knockback 3", "Controller", 
-		"Paralysis 3", "Quick Hit 2", "AOE"
+        "Health", 
+        "Damage", 
+        "Mana", 
+        "Mp Damage", 
+        "Extra Coin", 
+        "Burn Damage", 
+        "Bleed", 
+        "+1 Stew Output", 
+        "Multi-Atk", 
+        "Quick Breaking", 
+        "Unbinding", 
+        "Range", 
+        "Ricochet", 
+        "Mining", 
+        "Snow Day", 
+        "Amount", 
+        "Scatter", 
+        "Sweeping", 
+        "Looting", 
+        "Coin Magnet", 
+        "Piercing", 
+        "Crit 3 Combo", 
+        "Quick Hit 3", 
+        "Crit 2 Combo", 
+        "Knockback 3", 
+        "Controller", 
+        "Paralysis 3", 
+        "Quick Hit 2", 
+        "AOE"
     ];
 
     // Object defining minimum values for certain stats
     const minValues = {
-		"Extra Coin": 1, "+1 Stew Output": 1, "Multi-Atk": 1, "Quick Breaking": 1, "Unbinding": 1, 
-        "Ricochet": 1, "Mining": 1, "Snow Day": 1, "Scatter": 1, "Sweeping": 1, "Looting": 1,
-		"Coin Magnet": 1, "Piercing": 1, "Crit 3 Combo": 1, "Quick Hit 3": 1, "Crit Combo 2": 1,
-		"Knockback 3": 1, "Controller": 1, "Paralysis 3": 1, "Quick Hit 2": 1, "AOE": 1,
-        // Ranged weapons - This section does not work yet
-        //"QuickBow": { "Range": 2 },
-        //"Tribow": { "Range": 3 },
-        //"RecurveBow": { "Range": 4 },
-        //"Shuriken": { "Range": 2 },
-        //"Tomahawk": { "Range": 2 },
-        //"Warbow": { "Range": 4 },
-        //"Kunai": { "Range": 3 },
-        //"ColossalBow": { "Range": 4 },
-        //"TrinityBow": { "Range": 3 },
-        //"GnasherBow": { "Range": 2 },
-        //"Tendril": { "Range": 3 },
-        //"Fang": { "Range": 3 }
+        "Extra Coin": 1,
+        "+1 Stew Output": 1,
+        "Multi-Atk": 1,
+        "Quick Breaking": 1,
+        "Unbinding": 1,
+        "Ricochet": 1,
+        "Mining": 1,
+        "Snow Day": 1,
+        "Scatter": 1,
+        "Sweeping": 1,
+        "Looting": 1,
+        "Coin Magnet": 1,
+        "Piercing": 1,
+        "Crit 3 Combo": 1,
+        "Quick Hit 3": 1,
+        "Crit Combo 2": 1,
+        "Knockback 3": 1,
+        "Controller": 1,
+        "Paralysis 3": 1,
+        "Quick Hit 2": 1,
+        "AOE": 1,
+        // Ranged weapons
+        "QuickBow": { "Range": 2 },
+        "Tribow": { "Range": 3 },
+        "RecurveBow": { "Range": 4 },
+        "Shuriken": { "Range": 2 },
+        "Tomahawk": { "Range": 2 },
+        "Warbow": { "Range": 4 },
+        "Kunai": { "Range": 3 },
+        "ColossalBow": { "Range": 4 },
+        "TrinityBow": { "Range": 3 },
+        "GnasherBow": { "Range": 2 },
+        "Tendril": { "Range": 3 },
+        "Fang": { "Range": 3 }
     };
 
     // Object defining maximum values for certain stats
     const maxValues = {
-		"Critical Chance": 100, "Extra Coin": 1, "Lifesteal": 100, "Burn Chance": 100,
-		"Bleed Chance": 100, "Berserk Damage": 300, "Stun Chance": 50, "Hp Efficiency": 65,
-		"+1 Stew Output": 1, "Multi-Atk": 3, "Quick Breaking": 1, "Double Ore": 100,
-		"Endure": 50, "Unbinding": 1, "Poison Reduction": 50, "Ricochet": 1, "Triple Ore": 100,
-        "Mining": 4, "Knockback": 100, "Snow Day": 1, "Scatter": 1, "Sweeping": 1, "Looting": 4,
-		"Life Heal": 100, "Mana Efficiency": 30, "Paralysis Chance": 50, "Cast Surge": 300,
-		"Ore Explorer": 30, // Chest: 30, Helm: 20
-		"Reflect Chance": 15, "Coin Magnet": 2, "Spell Damage": 200, "Elite Damage": 10,
-		"Boss Damage": 10, "Piercing": 4, "Poison Chance": 30, "Crit 3 Combo": 1, "Quad Ore": 100,
-		"Max Barrier": 50, "Haste Damage": 10, "Self Damage": 10, "Spellcast Marty": 40,
-		"Free Spellcast": 10, "Haste Chance": 5, "Quick Hit 3": 1, "Double Item Chance": 30,
+        "Critical Chance": 100,
+        "Extra Coin": 1,
+        "Lifesteal": 100,
+        "Burn Chance": 100,
+        "Bleed Chance": 100,
+        "Berserk Damage": 300,
+        "Stun Chance": 50,
+        "Hp Efficiency": 65,
+        "+1 Stew Output": 1,
+        "Multi-Atk": 3,
+        "Quick Breaking": 1,
+        "Double Ore": 100,
+        "Endure": 50,
+        "Unbinding": 1,
+        "Poison Reduction": 50,
+        "Ricochet": 1,
+        "Triple Ore": 100,
+        "Mining": 4,
+        "Knockback": 100,
+        "Snow Day": 1,
+        "Scatter": 1,
+        "Sweeping": 1,
+        "Looting": 4,
+        "Life Heal": 100,
+        "Mana Efficiency": 30,
+        "Paralysis Chance": 50,
+        "Cast Surge": 300,
+        "Ore Explorer": 30, // Chest: 30, Helm: 20
+        "Reflect Chance": 15,
+        "Coin Magnet": 2,
+        "Spell Damage": 200,
+        "Elite Damage": 10,
+        "Boss Damage": 10,
+        "Piercing": 2,
+        "Poison Chance": 30,
+        "Crit 3 Combo": 1,
+        "Quad Ore": 100,
+        "Max Barrier": 50,
+        "Haste Damage": 10,
+        "Self Damage": 10,
+        "Spellcast Marty": 40,
+        "Free Spellcast": 10,
+        "Haste Chance": 5,
+        "Quick Hit 3": 1,
+        "Double Item Chance": 30,
         // "Mana %": 10,  Uncapped Longstaff, capped for Magician-H and Serpent-H
-		"Crit 2 Combo": 1, "Knockback 3": 1, "Controller": 1, "Pull Chance": 100,
-        "Stun Resistance": 100, "Paralysis 3": 1, "Quick Hit 2": 1, "Knockback Resistance": 100, 
-        "Water Breathing": 100, "Panic Resist": 50, "Recycle Throwable": 25, "Hp %": 20, "AOE": 2,
-        // Armor caps - This section does not work yet
-        //"RusticC": { "Armor": 15 }, "RusticH": { "Armor": 5 },
-        //"BrodC": { "Armor": 15 }, "BrodH": { "Armor": 5 },
-        //"GauntletC": { "Armor": 15 }, "GauntletH": { "Armor": 5 },
-        //"MajesticC": { "Armor": 15 }, "MajesticH": { "Armor": 5 },
-        //"MinerC": { "Armor": 15 }, "MinerH": { "Armor": 5 },
-        //"HeavyC": { "Armor": 15 }, "HeavyH": { "Armor": 5 },
-        //"GreedC": { "Armor": 15 }, "GreedH": { "Armor": 5 },
-        //"MagicianC": { "Armor": 15 }, "MagicianH": { "Armor": 5 },
-        //"MonsterC": { "Armor": 15 }, "MonsterH": { "Armor": 5 },
-        //"FanaticC": { "Armor": 15 }, "FanaticH": { "Armor": 5 },
-        //"SerpentC": { "Armor": 15 }, "SerpentH": { "Armor": 5 },
-        //"WarlockC": { "Armor": 15 }, "WarlockH": { "Armor": 5 },
-        //"DragonC": { "Armor": 15 }, "DragonH": { "Armor": 5 },
-        //"SentinelC": { "Armor": 15 }, "SentinelH": { "Armor": 5 },
-        //"DivingC": { "Armor": 15 }, "DivingH": { "Armor": 5 },
-        //"RoninC": { "Armor": 15 }, "RoninH": { "Armor": 5 },
-        //"Cloak": { "Armor": 15 },
-        //"GustafsMask": { "Armor": 5 },
-        //"SnowHat": { "Armor": 5 },
-        //"Flame": { "Armor": 5 },
-        // Ranged weapons - This section does not work yet
-        //"QuickBow": { "Range": 3 },
-        //"Tribow": { "Range": 4 },
-        //"RecurveBow": { "Range": 5 },
-        //"Shuriken": { "Range": 4 },
-        //"Tomahawk": { "Range": 4 },
-        //"Warbow": { "Range": 5 },
-        //"Kunai": { "Range": 5 },
-        //"ColossalBow": { "Range": 5 },
-        //"TrinityBow": { "Range": 3 },
-        //"GnasherBow": { "Range": 4 },
-        //"Tendril": { "Range": 3 },
-        //"Fang": { "Range": 5 }
+        "Crit 2 Combo": 1,
+        "Knockback 3": 1,
+        "Controller": 1,
+        "Pull Chance": 100,
+        "Stun Resistance": 100,
+        "Paralysis 3": 1,
+        "Quick Hit 2": 1,
+        "Knockback Resistance": 100,
+        "Water Breathing": 100,
+        "Panic Resist": 50,
+        "Recycle Throwable": 25,
+        "Hp %": 20,
+        "AOE": 2,
+        // Armor caps
+        "RusticC": { "Armor": 15 }, "RusticH": { "Armor": 5 },
+        "BrodC": { "Armor": 15 }, "BrodH": { "Armor": 5 },
+        "GauntletC": { "Armor": 15 }, "GauntletH": { "Armor": 5 },
+        "MajesticC": { "Armor": 15 }, "MajesticH": { "Armor": 5 },
+        "MinerC": { "Armor": 15 }, "MinerH": { "Armor": 5 },
+        "HeavyC": { "Armor": 15 }, "HeavyH": { "Armor": 5 },
+        "GreedC": { "Armor": 15 }, "GreedH": { "Armor": 5 },
+        "MagicianC": { "Armor": 15 }, "MagicianH": { "Armor": 5 },
+        "MonsterC": { "Armor": 15 }, "MonsterH": { "Armor": 5 },
+        "FanaticC": { "Armor": 15 }, "FanaticH": { "Armor": 5 },
+        "SerpentC": { "Armor": 15 }, "SerpentH": { "Armor": 5 },
+        "WarlockC": { "Armor": 15 }, "WarlockH": { "Armor": 5 },
+        "DragonC": { "Armor": 15 }, "DragonH": { "Armor": 5 },
+        "SentinelC": { "Armor": 15 }, "SentinelH": { "Armor": 5 },
+        "DivingC": { "Armor": 15 }, "DivingH": { "Armor": 5 },
+        "RoninC": { "Armor": 15 }, "RoninH": { "Armor": 5 },
+        "Cloak": { "Armor": 15 },
+        "GustafsMask": { "Armor": 5 },
+        "SnowHat": { "Armor": 5 },
+        "Flame": { "Armor": 5 },
+        // Ranged weapons
+        "QuickBow": { "Range": 3 },
+        "Tribow": { "Range": 4 },
+        "RecurveBow": { "Range": 5 },
+        "Shuriken": { "Range": 4 },
+        "Tomahawk": { "Range": 4 },
+        "Warbow": { "Range": 5 },
+        "Kunai": { "Range": 5 },
+        "ColossalBow": { "Range": 5 },
+        "TrinityBow": { "Range": 3 },
+        "GnasherBow": { "Range": 4 },
+        "Tendril": { "Range": 3 },
+        "Fang": { "Range": 5 }
     };
 
-    // Assign minimum and maximum rarity for items - Incomplete, need code to call on this
-    //const items = {
-    //    Axe: { minr: 1, maxr: 2 },
-    //    BattleAxe: { minr: 1, maxr: 2 },
-    //    ChargedSpear: { minr: 1, maxr: 2 },
-    //    Cleaver: { minr: 1, maxr: 2 },
-    //    Crusher: { minr: 1, maxr: 2 },
-    //    Dagger: { minr: 1, maxr: 2 },
-    //    DivingBlade: { minr: 1, maxr: 2 },
-    //    Gladius: { minr: 1, maxr: 2 },
-    //    GreaterPickaxe: { minr: 1, maxr: 2 },
-    //    Greatsword: { minr: 1, maxr: 2 },
-    //    JaggedBlade: { minr: 1, maxr: 2 },
-    //    Longsword: { minr: 1, maxr: 2 },
-    //    Mallet: { minr: 1, maxr: 2 },
-    //   Pickaxe: { minr: 1, maxr: 2 },
-    //    Scimitar: { minr: 1, maxr: 2 },
-    //    Slicer: { minr: 1, maxr: 2 },
-    //    Smasher: { minr: 1, maxr: 2 },
-    //    Splitter: { minr: 1, maxr: 2 },
-    //    BeholderWand: { minr: 1, maxr: 2 },
-    //    CrystalStaff: { minr: 1, maxr: 2 },
-    //    FrailStaff: { minr: 1, maxr: 2 },
-    //    JadeStaff: { minr: 1, maxr: 2 },
-    //    LargeRod: { minr: 1, maxr: 2 },
-    //    LongStaff: { minr: 1, maxr: 2 },
-    //    MagicStick: { minr: 1, maxr: 2 },
-    //    NemesisOrb: { minr: 1, maxr: 2 },
-    //    Scepter: { minr: 1, maxr: 2 },
-    //    SpiritStaff: { minr: 1, maxr: 2 },
-    //    CobraFang: { minr: 1, maxr: 2 },
-    //    ColossalBow: { minr: 1, maxr: 2 },
-    //    GnasherBow: { minr: 1, maxr: 2 },
-    //    Kunai: { minr: 1, maxr: 2 },
-    //    QuickBow: { minr: 1, maxr: 2 },
-    //    RecurveBow: { minr: 1, maxr: 2 },
-    //    Shuriken: { minr: 1, maxr: 2 },
-    //    Tendril: { minr: 1, maxr: 2 },
-    //    Tomahawk: { minr: 1, maxr: 2 },
-    //    Tribow: { minr: 1, maxr: 2 },
-    //    TrinityBow: { minr: 1, maxr: 2 },
-    //    Warbow: { minr: 1, maxr: 2 },
-    //    BrodC: { minr: 1, maxr: 2 },
-    //    Cloak: { minr: 1, maxr: 2 },
-    //    DefenderC: { minr: 1, maxr: 2 },
-    //    DivingC: { minr: 1, maxr: 2 },
-    //    DragonC: { minr: 1, maxr: 2 },
-    //    FanaticC: { minr: 1, maxr: 2 },
-    //    GauntletC: { minr: 1, maxr: 2 },
-    //    GreedC: { minr: 1, maxr: 2 },
-    //    HeavyC: { minr: 1, maxr: 2 },
-    //    MagicianC: { minr: 1, maxr: 2 },
-    //    MajesticC: { minr: 1, maxr: 2 },
-    //    MinerC: { minr: 1, maxr: 2 },
-    //    MonsterC: { minr: 1, maxr: 2 },
-    //    RoninC: { minr: 1, maxr: 2 },
-    //    RusticC: { minr: 1, maxr: 2 },
-    //    SentinelC: { minr: 1, maxr: 2 },
-    //    SerpentC: { minr: 1, maxr: 2 },
-    //    WarlockC: { minr: 1, maxr: 2 },
-    //    BrodH: { minr: 1, maxr: 2 },
-    //    DefenderH: { minr: 1, maxr: 2 },
-    //    DivingH: { minr: 1, maxr: 2 },
-    //    DragonH: { minr: 1, maxr: 2 },
-    //    FanaticH: { minr: 1, maxr: 2 },
-    //    FlameH: { minr: 1, maxr: 2 },
-    //    GauntletH: { minr: 1, maxr: 2 },
-    //    GreedH: { minr: 1, maxr: 2 },
-    //    GustafsMask: { minr: 1, maxr: 2 },
-    //    HeavyH: { minr: 1, maxr: 2 },
-    //    MagicianH: { minr: 1, maxr: 2 },
-    //    MajesticH: { minr: 1, maxr: 2 },
-    //    MinerH: { minr: 1, maxr: 2 },
-    //    MonsterH: { minr: 1, maxr: 2 },
-    //    RoninH: { minr: 1, maxr: 2 },
-    //    RusticH: { minr: 1, maxr: 2 },
-    //    SentinelH: { minr: 1, maxr: 2 },
-    //    SerpentH: { minr: 1, maxr: 2 },
-    //    SnowHat: { minr: 1, maxr: 2 },
-    //    WarlockH: { minr: 1, maxr: 2 }
-    //};
+    // Assign minimum and maximum rarity for items
+    const items = {
+        Axe: { minr: 1, maxr: 2 },
+        BattleAxe: { minr: 1, maxr: 2 },
+        ChargedSpear: { minr: 1, maxr: 2 },
+        Cleaver: { minr: 1, maxr: 2 },
+        Crusher: { minr: 1, maxr: 2 },
+        Dagger: { minr: 1, maxr: 2 },
+        DivingBlade: { minr: 1, maxr: 2 },
+        Gladius: { minr: 1, maxr: 2 },
+        GreaterPickaxe: { minr: 1, maxr: 2 },
+        Greatsword: { minr: 1, maxr: 2 },
+        JaggedBlade: { minr: 1, maxr: 2 },
+        Longsword: { minr: 1, maxr: 2 },
+        Mallet: { minr: 1, maxr: 2 },
+        Pickaxe: { minr: 1, maxr: 2 },
+        Scimitar: { minr: 1, maxr: 2 },
+        Slicer: { minr: 1, maxr: 2 },
+        Smasher: { minr: 1, maxr: 2 },
+        Splitter: { minr: 1, maxr: 2 },
+        BeholderWand: { minr: 1, maxr: 2 },
+        CrystalStaff: { minr: 1, maxr: 2 },
+        FrailStaff: { minr: 1, maxr: 2 },
+        JadeStaff: { minr: 1, maxr: 2 },
+        LargeRod: { minr: 1, maxr: 2 },
+        LongStaff: { minr: 1, maxr: 2 },
+        MagicStick: { minr: 1, maxr: 2 },
+        NemesisOrb: { minr: 1, maxr: 2 },
+        Scepter: { minr: 1, maxr: 2 },
+        SpiritStaff: { minr: 1, maxr: 2 },
+        CobraFang: { minr: 1, maxr: 2 },
+        ColossalBow: { minr: 1, maxr: 2 },
+        GnasherBow: { minr: 1, maxr: 2 },
+        Kunai: { minr: 1, maxr: 2 },
+        QuickBow: { minr: 1, maxr: 2 },
+        RecurveBow: { minr: 1, maxr: 2 },
+        Shuriken: { minr: 1, maxr: 2 },
+        Tendril: { minr: 1, maxr: 2 },
+        Tomahawk: { minr: 1, maxr: 2 },
+        Tribow: { minr: 1, maxr: 2 },
+        TrinityBow: { minr: 1, maxr: 2 },
+        Warbow: { minr: 1, maxr: 2 },
+        BrodC: { minr: 1, maxr: 2 },
+        Cloak: { minr: 1, maxr: 2 },
+        DefenderC: { minr: 1, maxr: 2 },
+        DivingC: { minr: 1, maxr: 2 },
+        DragonC: { minr: 1, maxr: 2 },
+        FanaticC: { minr: 1, maxr: 2 },
+        GauntletC: { minr: 1, maxr: 2 },
+        GreedC: { minr: 1, maxr: 2 },
+        HeavyC: { minr: 1, maxr: 2 },
+        MagicianC: { minr: 1, maxr: 2 },
+        MajesticC: { minr: 1, maxr: 2 },
+        MinerC: { minr: 1, maxr: 2 },
+        MonsterC: { minr: 1, maxr: 2 },
+        RoninC: { minr: 1, maxr: 2 },
+        RusticC: { minr: 1, maxr: 2 },
+        SentinelC: { minr: 1, maxr: 2 },
+        SerpentC: { minr: 1, maxr: 2 },
+        WarlockC: { minr: 1, maxr: 2 },
+        BrodH: { minr: 1, maxr: 2 },
+        DefenderH: { minr: 1, maxr: 2 },
+        DivingH: { minr: 1, maxr: 2 },
+        DragonH: { minr: 1, maxr: 2 },
+        FanaticH: { minr: 1, maxr: 2 },
+        FlameH: { minr: 1, maxr: 2 },
+        GauntletH: { minr: 1, maxr: 2 },
+        GreedH: { minr: 1, maxr: 2 },
+        GustafsMask: { minr: 1, maxr: 2 },
+        HeavyH: { minr: 1, maxr: 2 },
+        MagicianH: { minr: 1, maxr: 2 },
+        MajesticH: { minr: 1, maxr: 2 },
+        MinerH: { minr: 1, maxr: 2 },
+        MonsterH: { minr: 1, maxr: 2 },
+        RoninH: { minr: 1, maxr: 2 },
+        RusticH: { minr: 1, maxr: 2 },
+        SentinelH: { minr: 1, maxr: 2 },
+        SerpentH: { minr: 1, maxr: 2 },
+        SnowHat: { minr: 1, maxr: 2 },
+        WarlockH: { minr: 1, maxr: 2 }
+    };
 
-	// Loop through equipment stats
-	equipment.forEach(item => {
-    	let minResult, maxResult;
+// Loop through equipment stats
+equipment.forEach(item => {
+    let minResult, maxResult;
 
-    	// Calculate base values
-    	let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+    // Calculate base values
+    let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
                   item.mins + ((item.maxs - item.mins) / 2 * rarity);
-    	let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
+    let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
                   item.maxs + ((item.maxs - item.mins) / 2 * rarity);
+
+//    if (item.stat === "Armor") {
+//        logToPage("Before capping:", { minCalc, maxCalc });
+//    }
 
     // Round values if the stat is in the roundStats list
     if (roundStats.includes(item.stat)) {
@@ -1131,6 +1222,13 @@
         minResult = Math.min(minResult, maxValues[item.stat]);
         maxResult = Math.min(maxResult, maxValues[item.stat]);
     }
+
+//    if (maxValues[item.stat] !== undefined) {
+//        logToPage(`Capping Armor: Before -> min: ${minResult}, max: ${maxResult}`);
+//        minResult = Math.min(minResult, maxValues[item.stat]);
+//        maxResult = Math.min(maxResult, maxValues[item.stat]);
+//        logToPage(`Capping Armor: After -> min: ${minResult}, max: ${maxResult}`);
+//    }
 
     // Add percentage symbol if stat should display as percentage
     if (percentageStats.includes(item.stat)) {
@@ -1167,7 +1265,18 @@
         // Format the number
         return new Intl.NumberFormat(userLocale).format(value);
     }
-    
+
+    // Function to log messages to the page
+//    function logToPage(message) {
+//        const logContainer = document.getElementById('logContainer');
+//        const logMessage = document.createElement('p');
+//        logMessage.textContent = message;
+//        logContainer.appendChild(logMessage);
+
+        // Optionally scroll to the bottom of the log
+//        logContainer.scrollTop = logContainer.scrollHeight;
+//    }
+
     </script>
 </body>
 </html>
