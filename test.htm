@@ -1194,10 +1194,18 @@
         },
     };
  
-    // Function to get the rarity value based on selected rarity
+    // Get rarity number from selected rarity name
     function getRarityValue() {
         const selectedRarity = document.getElementById('rarity').value;
-        return rarityValues[selectedRarity] || null; // Return the value of the selected rarity
+        return rarityValues[selectedRarity] || null;
+    }
+
+    // Get rarity name from rarity number
+    function getRarityNameByValue(value) {
+        for (const [name, num] of Object.entries(rarityValues)) {
+            if (num === value) return name;
+        }
+        return "Unknown";
     }
  
 // Function to update the Results table header and contents based on Equipment selection
@@ -1378,6 +1386,17 @@ function updateResultsHeader() {
         minrarity = equipmentStats[selectedEquipment].minrarity;
         maxrarity = equipmentStats[selectedEquipment].maxrarity;
     }}
+
+    const statMinCapKeys = {
+        "Range": "minrange"
+    };
+
+    const statMaxCapKeys = {
+        "Armor": "maxarmor",
+        "Mana %": "maxmana",
+        "Ore Explorer": "maxore",
+        "Range": "maxrange"
+    };
  
     // Loop through equipment stats
     equipment.forEach(item => {
@@ -1397,6 +1416,22 @@ function updateResultsHeader() {
         // Keep decimal places for other stats
         minresult = (minCalc / 100).toFixed(2);
         maxresult = (maxCalc / 100).toFixed(2);
+    }
+
+    // Apply minimum caps
+    const minCapKey = statMinCapKeys[item.stat];
+    if (minCapKey && equipmentStats[selectedEquipment][minCapKey] !== undefined) {
+        const minCap = equipmentStats[selectedEquipment][minCapKey];
+        minresult = Math.max(minresult, minCap);
+        maxresult = Math.max(maxresult, minCap);
+    }
+
+    // Apply maximum caps
+    const maxCapKey = statMaxCapKeys[item.stat];
+    if (maxCapKey && equipmentStats[selectedEquipment][maxCapKey] !== undefined) {
+        const maxCap = equipmentStats[selectedEquipment][maxCapKey];
+        minresult = Math.min(minresult, maxCap);
+        maxresult = Math.min(maxresult, maxCap);
     }
  
     // Apply max value cap if the stat has a limit
@@ -1418,10 +1453,13 @@ function updateResultsHeader() {
     });
  
     // Append Rarity row at the bottom
+    const minRarityName = getRarityNameByValue(minrarity);
+    const maxRarityName = getRarityNameByValue(maxrarity);
+
     const rarityRow = document.createElement("tr");
     rarityRow.innerHTML = `
         <td><strong>Rarity:</strong></td>
-        <td colspan="3">${minrarity} - ${maxrarity}</td>
+        <td colspan="3">${minRarityName}  -  ${maxRarityName}</td>
     `;
     resultTableBody.appendChild(rarityRow);
 }
