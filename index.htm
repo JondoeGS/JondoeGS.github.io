@@ -384,6 +384,9 @@
  
     // This section has all equipment modifiers. It is case sensitive. 
     const equipmentStats = {
+
+        // Melee weapons
+
         Longsword: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
             { stat: "Critical Chance", minx: 0.2, maxx: 0.25, mins: 10, maxs: 200, percentage: 25 },
@@ -476,7 +479,7 @@
             { stat: "Triple Ore", minx: 0, maxx: 1, mins: 100, maxs: 500, percentage: 75 },
             { stat: "Quad Ore", minx: 0, maxx: 0.4, mins: 100, maxs: 250, percentage: 50 },
             { stat: "Mining", minx: 0, maxx: 0.0003, mins: 1, maxs: 1, percentage: 50 },
-            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 }
+            { stat: "Quick Breaking", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 75 }
         ],
 
         DivineBlade: [
@@ -508,6 +511,8 @@
             { stat: "Paralysis 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
         ],
 
+        // Magic Weapons
+
         MagicStick: [
             { stat: "Mp Damage", minx: 0.1, maxx: 0.15, mins: 3, maxs: 6, percentage: 100 }
         ],
@@ -520,7 +525,7 @@
         Scepter: [
             { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
             { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
-            { stat: "Multi-Atk", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 50 }
+            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 50 }
         ],
 
         SpiritStaff: [
@@ -554,7 +559,7 @@
 
         FrailStaff: [
             { stat: "Mp Damage", minx: 0.15, maxx: 0.2, mins: 4, maxs: 8, percentage: 100 },
-            { stat: "Spell Damage", minx: 0.3, maxx: 0.6, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Spell Damage", minx: 0.3, maxx: 0.65, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Cast Surge", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
         ],
 
@@ -570,14 +575,16 @@
             { stat: "Mana", minx: 0.15, maxx: 0.2, mins: 10, maxs: 50, percentage: 100 },
             { stat: "Boss Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 250, percentage: 100 },
             { stat: "Cast Surge", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 100 },
-            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 3, percentage: 50 }
+            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 50 }
         ],
+
+        // Ranged weapons
 
         QuickBow: [
             { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
             { stat: "Range", minx: 0, maxx: 0, mins: 1, maxs: 2, percentage: 100 },
             { stat: "Critical Chance", minx: 0.35, maxx: 0.45, mins: 500, maxs: 1000, percentage: 25 },
-            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 10 }
+            { stat: "Quick Breaking", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 10 }
         ],
 
         Tribow: [
@@ -637,7 +644,7 @@
 
         TrinityBow: [
             { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 1, maxs: 8, percentage: 100 },
-            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 3, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 4, percentage: 100 },             // Patch notes for beta.1.3.299 shows +1 range. Is that only maxx?
             { stat: "Critical Chance", minx: 0.15, maxx: 0.25, mins: 100, maxs: 1000, percentage: 100 },
             { stat: "Critical Damage", minx: 0.1, maxx: 0.6, mins: 100, maxs: 500, percentage: 50 },
             { stat: "Quick Hit 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
@@ -649,13 +656,7 @@
             { stat: "Ricochet", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
             { stat: "Poison Chance", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 },
             { stat: "Scatter", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
-            { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
-        ],
-
-        Tendril: [
-            { stat: "Damage", minx: 0.05, maxx: 0.07, mins: 1, maxs: 3, percentage: 100 },
-            { stat: "Range", minx: 0, maxx: 0, mins: 2, maxs: 3, percentage: 100 },
-            { stat: "Pull Chance", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 100 }
+            { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }         // Game files in 1.3.310 show   minx: 0.15, maxx: 0.2
         ],
 
         Fang: [
@@ -664,6 +665,14 @@
             { stat: "Amount", minx: 0, maxx: 0, mins: 1, maxs: 5, percentage: 100 },
             { stat: "Poison Chance", minx: 0.2, maxx: 0.25, mins: 500, maxs: 1000, percentage: 100 }
         ],
+
+        Tendril: [
+            { stat: "Damage", minx: 0.05, maxx: 0.07, mins: 1, maxs: 3, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 2, maxs: 3, percentage: 100 },
+            { stat: "Pull Chance", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 100 }
+        ],
+
+        // Chest armor
 
         RusticC: [
             { stat: "Health", minx: 0.3, maxx: 0.5, mins: 10, maxs: 50, percentage: 100 },
@@ -678,13 +687,13 @@
         BrodC: [
             { stat: "Health", minx: 0.6, maxx: 0.8, mins: 60, maxs: 100, percentage: 100 },
             { stat: "Armor", minx: 0.1, maxx: 0.2, mins: 100, maxs: 300, percentage: 80 },
-            { stat: "+1 Stew Output", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 40 }
+            { stat: "+1 Stew Output", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 40 }      // Game files show   mins: 0, maxs: 0
         ],
 
         GauntletC: [
             { stat: "Health", minx: 0.65, maxx: 0.8, mins: 30, maxs: 40, percentage: 100 },
             { stat: "Armor", minx: 0.3, maxx: 0.5, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
+            { stat: "Quick Breaking", minx: 0.001, maxx: 0.003, mins: 1, maxs: 1, percentage: 50 },
             { stat: "Double Ore", minx: 1, maxx: 1.5, mins: 100, maxs: 500, percentage: 10 }
         ],
 
@@ -696,13 +705,13 @@
         MinerC: [
             { stat: "Health", minx: 0.7, maxx: 0.9, mins: 20, maxs: 30, percentage: 100 },
             { stat: "Armor", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 100 },
-            { stat: "Ore Explorer", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }
+            { stat: "Ore Explorer", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }    // This caps at 30%
         ],
 
         HeavyC: [
             { stat: "Health", minx: 0.9, maxx: 1.1, mins: 20, maxs: 30, percentage: 100 },
             { stat: "Armor", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 100 },
-            { stat: "Reflect Chance", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }
+            { stat: "Reflect Chance", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }  // Check cap
         ],
 
         GreedC: [
@@ -713,7 +722,7 @@
 
         MagicianC: [
             { stat: "Health", minx: 0.5, maxx: 0.6, mins: 10, maxs: 30, percentage: 100 },
-            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 }
+            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 }       // Check cap -- Kaphar says 50%
         ],
 
         MonsterC: [
@@ -725,12 +734,12 @@
         FanaticC: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 20, percentage: 100 },
             { stat: "Max Barrier", minx: 0.25, maxx: 0.35, mins: 100, maxs: 500, percentage: 75 },
-            { stat: "Haste Damage", minx: 0.05, maxx: 0.15, mins: 100, maxs: 200, percentage: 50 }
+            { stat: "Haste Damage", minx: 0.05, maxx: 0.15, mins: 100, maxs: 200, percentage: 50 }  // Check cap
         ],
 
         SerpentC: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 10, maxs: 20, percentage: 100 },
-            { stat: "Mana %", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 100 },        // Check cap
             { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 100, maxs: 400, percentage: 75 },
             { stat: "Free Spellcast", minx: 0.05, maxx: 0.075, mins: 100, maxs: 200, percentage: 50 }
         ],
@@ -738,14 +747,14 @@
         Cloak: [
             { stat: "Health", minx: 0.3, maxx: 0.4, mins: 10, maxs: 40, percentage: 100 },
             { stat: "Armor", minx: 0.1, maxx: 0.2, mins: 100, maxs: 250, percentage: 50 },
-            { stat: "Haste Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 75 },
-            { stat: "Haste Chance", minx: 0.03, maxx: 0.04, mins: 0, maxs: 200, percentage: 75 }
+            { stat: "Haste Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 75 },  // Check cap
+            { stat: "Haste Chance", minx: 0.03, maxx: 0.04, mins: 0, maxs: 200, percentage: 75 }    // Check cap
         ],
 
         WarlockC: [
             { stat: "Health", minx: 0.4, maxx: 0.5, mins: 50, maxs: 100, percentage: 100 },
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
-            { stat: "Mana %", minx: 0.1, maxx: 0.12, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Mana %", minx: 0.1, maxx: 0.12, mins: 100, maxs: 500, percentage: 100 },       // Check cap
             { stat: "Paralysis Chance", minx: 0.2, maxx: 0.25, mins: 100, maxs: 250, percentage: 75 }
         ],
 
@@ -759,14 +768,14 @@
         DragonC: [
             { stat: "Health", minx: 0.8, maxx: 0.9, mins: 30, maxs: 40, percentage: 100 },
             { stat: "Armor", minx: 0.3, maxx: 0.4, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Knockback Resistance", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 }
+            { stat: "Knockback Resistance", minx: 0.15, maxx: 0.2, mins: 100, maxs: 500, percentage: 75 }   // Game files show name "Knockback Resist"
         ],
 
         SentinelC: [
             { stat: "Health", minx: 0.8, maxx: 1, mins: 30, maxs: 60, percentage: 100 },
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Boss Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 50 },
-            { stat: "Hp %", minx: 0.2, maxx: 0.3, mins: 500, maxs: 100, percentage: 25 }
+            { stat: "Hp %", minx: 0.2, maxx: 0.3, mins: 500, maxs: 1000, percentage: 25 }
         ],
 
         DivingC: [
@@ -774,6 +783,8 @@
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Oxygen Boost", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
         ],
+
+        // Helm armor
 
         RusticH: [
             { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 }
@@ -810,22 +821,28 @@
             { stat: "Snow Day", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 100 }
         ],
 
+        MinerH: [
+            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
+            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
+            { stat: "Ore Explorer", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }   // Caps at 20%
+        ],
+
         HeavyH: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
             { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Reflect Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
+            { stat: "Reflect Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 } // Check cap
         ],
 
         GreedH: [
             { stat: "Health", minx: 0.15, maxx: 0.2, mins: 10, maxs: 20, percentage: 100 },
             { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Coin Magnet", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 75 }
+            { stat: "Coin Magnet", minx: 0, maxx: 0, mins: 2, maxs: 2, percentage: 75 }             // Caps at 2
         ],
 
         MagicianH: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
-            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Spell Damage", minx: 0.1, maxx: 0.2, mins: 200, maxs: 500, percentage: 75 }
+            { stat: "Mana %", minx: 0.1, maxx: 0.125, mins: 200, maxs: 500, percentage: 100 },      // Caps at 10%
+            { stat: "Spell Damage", minx: 0.1, maxx: 0.2, mins: 200, maxs: 500, percentage: 75 }    // Caps at 200%
         ],
 
         MonsterH: [
@@ -842,9 +859,9 @@
 
         SerpentH: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
-            { stat: "Mana %", minx: 0.05, maxx: 0.075, mins: 100, maxs: 200, percentage: 100 },
+            { stat: "Mana %", minx: 0.05, maxx: 0.075, mins: 100, maxs: 200, percentage: 100 },     // Check cap
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 250, percentage: 75 },
-            { stat: "Spellcast Marty", minx: 0.1, maxx: 0.25, mins: 100, maxs: 500, percentage: 75 }
+            { stat: "Spellcast Martyr", minx: 0.1, maxx: 0.25, mins: 100, maxs: 500, percentage: 75 }
         ],
 
         WarlockH: [
@@ -877,12 +894,6 @@
             { stat: "Health", minx: 0.25, maxx: 0.35, mins: 20, maxs: 30, percentage: 100 },
             { stat: "Armor", minx: 0.5, maxx: 1, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Endure", minx: 0.5, maxx: 0.85, mins: 100, maxs: 250, percentage: 75 }
-        ],
-
-        MinerH: [
-            { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
-            { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Ore Explorer", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
         ],
 
         DivingH: [
@@ -1057,7 +1068,7 @@ function updateResultsHeader() {
         "Max Barrier": 50,
         "Haste Damage": 10,
         "Self Damage": 10,
-        "Spellcast Marty": 40,
+        "Spellcast Martyr": 40,
         "Free Spellcast": 10,
         "Haste Chance": 5,
         "Quick Hit 3": 1,
@@ -1106,7 +1117,7 @@ function updateResultsHeader() {
         "Warbow": { "Range": 5 },
         "Kunai": { "Range": 5 },
         "ColossalBow": { "Range": 5 },
-        "TrinityBow": { "Range": 3 },
+        "TrinityBow": { "Range": 4 },
         "GnasherBow": { "Range": 4 },
         "Tendril": { "Range": 3 },
         "Fang": { "Range": 5 }

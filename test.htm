@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBA ESL Test</title>
+    <title>OBA Equipment Stats Look-up</title>
     <style>
         /* Default styling (desktop-first approach) */
     body {
@@ -15,32 +15,32 @@
         /* justify-content: center;  Center content vertically */
         min-height: 100vh;
     }
-
+ 
     /* Ensure tables and selects don't stretch too much */
     table, select {
         max-width: 125px;
     }
-
+ 
     /* Mobile styles */
     @media (max-width: 768px) {
         body {
             align-items: center; /* Center content horizontally */
             padding: 10px;
         }
-
+ 
         table, select {
             max-width: 100%; /* Full width on small screens */
             align-items: center; /* Center content horizontally */
             justify-content: center; /* Center content vertically */
         }
-
+ 
         h2 {
             text-align: center; /* Keep headings centered */
             width: 100%;
         }
     }
-
-
+ 
+ 
         select {
             width: 200px; /* Adjust width as needed */
             height: 40px; /* Adjust height for a rectangular shape */
@@ -52,7 +52,7 @@
             background-color: #363b77; 
             cursor: pointer;
         }
-
+ 
         /* Optional: Style dropdown on focus */
         select:focus {
             border-color: #007bff; /* Blue border when selected */
@@ -73,7 +73,7 @@
             padding: 8px;
             color: inherit; /* Inherit text color from body */
         }
-        
+ 
         th {
             background-color: #363b77;
         }
@@ -100,23 +100,23 @@
         #Results td, #Results th {
             border: 1px solid #c69da3; /* Border for cells in Results */
         }
-        
+ 
         td:nth-child(n+2), th:nth-child(n+2) {
             text-align: center;
         }
     </style>
 </head>
 <body>
-
+ 
     <h2>Equipment Stats Look-up</h2>
     <table id="selectOptions">
     <tr><td>
     <label for="equipment">Equipment:</label>
     </td><td>
     <select id="equipment">
-
+ 
     <!-- Melee options group -->
-
+ 
     <optgroup label="Melee">
         <option value="Axe">Axe</option>
         <option value="BattleAxe">Battle Axe</option>
@@ -137,9 +137,9 @@
         <option value="Smasher">Smasher</option>
         <option value="Splitter">Splitter</option>
     </optgroup>
-
+ 
     <!-- Magic options group -->
-
+ 
     <optgroup label="Magic">
         <option value="BeholderWand">Beholder Wand</option>
         <option value="CrystalStaff">Crystal Staff</option>
@@ -152,13 +152,13 @@
         <option value="Scepter">Scepter</option>
         <option value="SpiritStaff">Spirit Staff</option>
     </optgroup>
-
+ 
     <!-- Ranged options group -->
-
+ 
     <optgroup label="Ranged">
         <option value="Fang">Fang</option>
         <option value="ColossalBow">Colossal Bow</option>
-        <option value="GnasherBow">Gnasher Bow</option>
+        <option value="Gnasher">Gnasher</option>
         <option value="Kunai">Kunai</option>
         <option value="QuickBow">Quick Bow</option>
         <option value="RecurveBow">Recurve Bow</option>
@@ -228,7 +228,7 @@
         <option value="Epic">Epic</option>
         <option value="Legendary">Legendary</option>
         <option value="Rogue">Rogue</option>
-        <option value="Mythical">Mythical</option>
+        <option value="Mythic">Mythic</option>
         <option value="Ancient">Ancient</option>
         <option value="Galactic">Galactic</option>
     </select>
@@ -383,9 +383,9 @@
  
     // This section has all equipment modifiers. It is case sensitive. 
     const equipmentStats = {
-
+ 
     // Melee weapons stats
-
+ 
         Longsword: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
@@ -394,14 +394,14 @@
         ],
         minrarity: 0, maxrarity: 4
         },
-
+ 
         Cleaver: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 }
         ],
         minrarity: 0, maxrarity: 4
         },
-
+ 
         Axe: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 2, maxs: 6, percentage: 100 },
@@ -411,7 +411,7 @@
         ],
         minrarity: 0, maxrarity: 4
         },
-
+ 
         Greatsword: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 7, percentage: 100 },
@@ -421,7 +421,7 @@
         ],
         minrarity: 0, maxrarity: 8
         },
-
+ 
         Dagger: {
         stats: [
             { stat: "Damage", minx: 0.01, maxx: 0.03, mins: 1, maxs: 3, percentage: 100 },
@@ -430,7 +430,7 @@
         ],
         minrarity: 5, maxrarity: 8
         },
-
+ 
         Pickaxe: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.15, mins: 1, maxs: 4, percentage: 100 },
@@ -440,7 +440,7 @@
         ],
         minrarity: 1, maxrarity: 5
         },
-
+ 
         BattleAxe: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 6, percentage: 100 },
@@ -451,7 +451,7 @@
         ],
         minrarity: 3, maxrarity: 8
         },
-
+ 
         Mallet: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
@@ -460,7 +460,7 @@
         ],
         minrarity: 2, maxrarity: 8
         },
-
+ 
         JaggedBlade: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
@@ -470,7 +470,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         Splitter: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 3, maxs: 6, percentage: 100 },
@@ -481,7 +481,7 @@
         ],
         minrarity: 3, maxrarity: 8
         },
-
+ 
         Scimitar: {
             stats: [
             { stat: "Damage", minx: 0.175, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
@@ -491,7 +491,7 @@
         ],
         minrarity: 2, maxrarity: 8
         },
-
+ 
         Gladius: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 3, maxs: 7, percentage: 100 },
@@ -501,7 +501,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         Crusher: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 3, percentage: 100 },
@@ -511,7 +511,7 @@
         ],
         minrarity: 3, maxrarity: 8
         },
-
+ 
         GreaterPickaxe: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 4, percentage: 100 },
@@ -522,7 +522,7 @@
         ],
         minrarity: 6, maxrarity: 8
         },
-
+ 
         DivineBlade: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.1725, mins: 1, maxs: 4, percentage: 100 },
@@ -533,7 +533,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         Slicer: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 3, maxs: 6, percentage: 100 },
@@ -545,7 +545,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         Smasher: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 1, maxs: 5, percentage: 100 },
@@ -555,7 +555,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         ChargedSpear: {
         stats: [
             { stat: "Damage", minx: 0.25, maxx: 0.375, mins: 3, maxs: 9, percentage: 100 },
@@ -563,16 +563,16 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
     // Magic weapons stats
-
+ 
         MagicStick: {
         stats: [
             { stat: "Mp Damage", minx: 0.1, maxx: 0.15, mins: 3, maxs: 6, percentage: 100 }
         ],
         minrarity: 0, maxrarity: 1
         },
-
+ 
         LargeRod: {
         stats: [
             { stat: "Mp Damage", minx: 0.2, maxx: 0.22, mins: 2, maxs: 6, percentage: 100 },
@@ -580,16 +580,16 @@
         ],
         minrarity: 1, maxrarity: 4
         },
-
+ 
         Scepter: {
         stats: [
             { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
             { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
-            { stat: "Multi-Atk", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 50 }
+            { stat: "Multi-Atk", minx: 0.001, maxx: 0.003, mins: 1, maxs: 3, percentage: 50 }
         ],
         minrarity: 2, maxrarity: 4
         },
-
+ 
         SpiritStaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.25, maxx: 0.3, mins: 1, maxs: 5, percentage: 100 },
@@ -599,7 +599,7 @@
         ],
         minrarity: 2, maxrarity: 8
         },
-
+ 
         JadeStaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.15, maxx: 0.2, mins: 2, maxs: 5, percentage: 100 },
@@ -609,7 +609,7 @@
         ],
         minrarity: 3, maxrarity: 8
         },
-
+ 
         LongStaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
@@ -620,7 +620,7 @@
         ],
         minrarity: 2, maxrarity: 8
         },
-
+ 
         CrystalStaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
@@ -630,16 +630,16 @@
         ],
         minrarity: 2, maxrarity: 8
         },
-
+ 
         FrailStaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.15, maxx: 0.2, mins: 4, maxs: 8, percentage: 100 },
-            { stat: "Spell Damage", minx: 0.3, maxx: 0.6, mins: 100, maxs: 500, percentage: 100 },
+            { stat: "Spell Damage", minx: 0.3, maxx: 0.65, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Cast Surge", minx: 0.1, maxx: 0.2, mins: 100, maxs: 500, percentage: 50 }
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         NemesisOrb: {
         stats: [
             { stat: "Mp Damage", minx: 0.2, maxx: 0.32, mins: 2, maxs: 10, percentage: 100 },
@@ -649,7 +649,7 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
         BeholderWand: {
         stats: [
             { stat: "Mp Damage", minx: 0.25, maxx: 0.33, mins: 4, maxs: 8, percentage: 100 },
@@ -660,9 +660,9 @@
         ],
         minrarity: 4, maxrarity: 8
         },
-
+ 
     // Ranged weapons stats
-
+ 
         QuickBow: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 2, maxs: 6, percentage: 100 },
@@ -673,7 +673,7 @@
         minrarity: 0, maxrarity: 3,
         minrange: 2, maxrange: 3
         },
-
+ 
         Tribow: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 1, maxs: 8, percentage: 100 },
@@ -684,7 +684,7 @@
         minrarity: 0, maxrarity: 8,
         minrange: 3, maxrange: 4
         },
-
+ 
         RecurveBow: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 4, maxs: 9, percentage: 100 },
@@ -695,7 +695,7 @@
         minrarity: 0, maxrarity: 8,
         minrange: 4, maxrange: 5
         },
-
+ 
         Shuriken: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.2, mins: 1, maxs: 5, percentage: 100 },
@@ -707,7 +707,7 @@
         minrarity: 1, maxrarity: 8,
         minrange: 2, maxrange: 4
         },
-
+ 
         Tomahawk: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.3, mins: 1, maxs: 5, percentage: 100 },
@@ -720,7 +720,7 @@
         minrarity: 1, maxrarity: 8,
         minrange: 2, maxrange: 4
         },
-
+ 
         Warbow: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 4, maxs: 9, percentage: 100 },
@@ -732,7 +732,7 @@
         minrarity: 3, maxrarity: 8,
         minrange: 4, maxrange: 5
         },
-
+ 
         Kunai: {
         stats: [
             { stat: "Damage", minx: 0.15, maxx: 0.25, mins: 1, maxs: 3, percentage: 100 },
@@ -744,7 +744,7 @@
         minrarity: 3, maxrarity: 8,
         minrange: 3, maxrange: 5
         },
-
+ 
         ColossalBow: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.25, mins: 4, maxs: 9, percentage: 100 },
@@ -756,20 +756,20 @@
         minrarity: 4, maxrarity: 8,
         minrange: 4, maxrange: 5
         },
-
+ 
         TrinityBow: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.2, mins: 1, maxs: 8, percentage: 100 },
-            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 3, percentage: 100 },
+            { stat: "Range", minx: 0, maxx: 0, mins: 3, maxs: 4, percentage: 100 },
             { stat: "Critical Chance", minx: 0.15, maxx: 0.25, mins: 100, maxs: 1000, percentage: 100 },
-            { stat: "Critical Damage", minx: 0.1, maxx: 0.15, mins: 100, maxs: 500, percentage: 50 },
+            { stat: "Critical Damage", minx: 0.1, maxx: 0.6, mins: 100, maxs: 500, percentage: 50 },
             { stat: "Quick Hit 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
         ],
         minrarity: 4, maxrarity: 8,
         minrange: 3, maxrange: 3
         },
-
-        GnasherBow: {
+ 
+        Gnasher: {
         stats: [
             { stat: "Damage", minx: 0.1, maxx: 0.125, mins: 1, maxs: 8, percentage: 100 },
             { stat: "Range", minx: 0, maxx: 0, mins: 2, maxs: 4, percentage: 100 },
@@ -781,7 +781,7 @@
         minrarity: 4, maxrarity: 8,
         minrange: 2, maxrange: 4
         },
-
+ 
         Tendril: {
         stats: [
             { stat: "Damage", minx: 0.05, maxx: 0.07, mins: 1, maxs: 3, percentage: 100 },
@@ -791,7 +791,7 @@
         minrarity: 4, maxrarity: 8,
         minrange: 3, maxrange: 3
         },
-
+ 
         Fang: {
         stats: [
             { stat: "Damage", minx: 0.2, maxx: 0.25, mins: 1, maxs: 5, percentage: 100 },
@@ -802,9 +802,9 @@
         minrarity: 4, maxrarity: 8,
         minrange: 3, maxrange: 5
         },
-
+ 
     // Chestpieces stats
-
+ 
         RusticC: {
         stats: [
             { stat: "Health", minx: 0.3, maxx: 0.5, mins: 10, maxs: 50, percentage: 100 },
@@ -813,7 +813,7 @@
         minrarity: 0, maxrarity: 4,
         maxarmor: 15
         },
-
+ 
         DefenderC: {
         stats: [
             { stat: "Health", minx: 0.5, maxx: 0.75, mins: 40, maxs: 60, percentage: 100 },
@@ -822,7 +822,7 @@
         minrarity: 1, maxrarity: 6,
         maxarmor: 15
         },
-
+ 
         BrodC: {
         stats: [
             { stat: "Health", minx: 0.6, maxx: 0.8, mins: 60, maxs: 100, percentage: 100 },
@@ -832,7 +832,7 @@
         minrarity: 1, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         GauntletC: {
         stats: [
             { stat: "Health", minx: 0.65, maxx: 0.8, mins: 30, maxs: 40, percentage: 100 },
@@ -843,7 +843,7 @@
         minrarity: 3, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         MajesticC: {
         stats: [
             { stat: "Health", minx: 0.8, maxx: 1, mins: 20, maxs: 30, percentage: 100 },
@@ -852,7 +852,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         MinerC: {
         stats: [
             { stat: "Health", minx: 0.7, maxx: 0.9, mins: 20, maxs: 30, percentage: 100 },
@@ -863,7 +863,7 @@
         maxarmor: 15,
         maxore: 30
         },
-
+ 
         HeavyC: {
         stats: [
             { stat: "Health", minx: 0.9, maxx: 1.1, mins: 20, maxs: 30, percentage: 100 },
@@ -873,7 +873,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         GreedC: {
         stats: [
             { stat: "Health", minx: 0.7, maxx: 0.9, mins: 20, maxs: 40, percentage: 100 },
@@ -883,7 +883,7 @@
         minrarity: 3, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         MagicianC: {
         stats: [
             { stat: "Health", minx: 0.5, maxx: 0.6, mins: 10, maxs: 30, percentage: 100 },
@@ -891,9 +891,9 @@
         ],
         minrarity: 2, maxrarity: 8,
         maxarmor: 15,
-        maxmana: 10
+        maxmana: 50
         },
-
+ 
         MonsterC: {
         stats: [
             { stat: "Health", minx: 0.8, maxx: 1, mins: 20, maxs: 50, percentage: 100 },
@@ -903,7 +903,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         FanaticC: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 20, percentage: 100 },
@@ -913,7 +913,7 @@
         minrarity: 6, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         SerpentC: {
         stats: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 10, maxs: 20, percentage: 100 },
@@ -923,9 +923,9 @@
         ],
         minrarity: 4, maxrarity: 8,
         maxarmor: 15,
-        maxmana: 10
+        maxmana: 50
         },
-
+ 
         Cloak: {
         stats: [
             { stat: "Health", minx: 0.3, maxx: 0.4, mins: 10, maxs: 40, percentage: 100 },
@@ -936,7 +936,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         WarlockC: {
         stats: [
             { stat: "Health", minx: 0.4, maxx: 0.5, mins: 50, maxs: 100, percentage: 100 },
@@ -948,7 +948,7 @@
         maxarmor: 15,
         maxmana: 50
         },
-
+ 
         RoninC: {
         stats: [
             { stat: "Health", minx: 0.4, maxx: 0.5, mins: 10, maxs: 20, percentage: 100 },
@@ -959,7 +959,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         DragonC: {
         stats: [
             { stat: "Health", minx: 0.8, maxx: 0.9, mins: 30, maxs: 40, percentage: 100 },
@@ -969,18 +969,18 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         SentinelC: {
         stats: [
             { stat: "Health", minx: 0.8, maxx: 1, mins: 30, maxs: 60, percentage: 100 },
             { stat: "Armor", minx: 0.05, maxx: 0.1, mins: 100, maxs: 500, percentage: 100 },
             { stat: "Boss Damage", minx: 0.1, maxx: 0.125, mins: 100, maxs: 500, percentage: 50 },
-            { stat: "Hp %", minx: 0.2, maxx: 0.3, mins: 500, maxs: 100, percentage: 25 }
+            { stat: "Hp %", minx: 0.2, maxx: 0.3, mins: 500, maxs: 1000, percentage: 25 }
         ],
         minrarity: 4, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
         DivingC: {
         stats: [
             { stat: "Health", minx: 0.8, maxx: 1, mins: 30, maxs: 60, percentage: 100 },
@@ -990,9 +990,9 @@
         minrarity: 0, maxrarity: 8,
         maxarmor: 15
         },
-
+ 
     // Helmet stats
-
+ 
         RusticH: {
         stats: [
             { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 }
@@ -1000,7 +1000,7 @@
         minrarity: 0, maxrarity: 4,
         maxarmor: 5
         },
-
+ 
         DefenderH: {
         stats: [
             { stat: "Health", minx: 0.075, maxx: 0.1, mins: 10, maxs: 20, percentage: 100 },
@@ -1009,7 +1009,7 @@
         minrarity: 1, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         BrodH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 40, percentage: 100 }
@@ -1017,7 +1017,7 @@
         minrarity: 2, maxrarity: 6,
         maxarmor: 5
         },
-
+ 
         GauntletH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.2, mins: 20, maxs: 30, percentage: 100 },
@@ -1027,7 +1027,7 @@
         minrarity: 3, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         MajesticH: {
         stats: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
@@ -1036,7 +1036,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         GustafsMask: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 2, maxs: 20, percentage: 100 },
@@ -1047,7 +1047,7 @@
         minrarity: 0, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         SnowHat: {
         stats: [
             { stat: "Health", minx: 0.03, maxx: 0.05, mins: 1, maxs: 20, percentage: 100 },
@@ -1056,7 +1056,7 @@
         minrarity: 0, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         MinerH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.2, mins: 40, maxs: 60, percentage: 100 },
@@ -1067,7 +1067,7 @@
         maxarmor: 5,
         maxore: 20
         },
-
+ 
         HeavyH: {
         stats: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
@@ -1077,17 +1077,17 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         GreedH: {
         stats: [
             { stat: "Health", minx: 0.15, maxx: 0.2, mins: 10, maxs: 20, percentage: 100 },
             { stat: "Armor", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 100 },
-            { stat: "Coin Magnet", minx: 0, maxx: 0, mins: 1, maxs: 3, percentage: 75 }
+            { stat: "Coin Magnet", minx: 0, maxx: 0, mins: 2, maxs: 2, percentage: 75 }
         ],
         minrarity: 3, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         MagicianH: {
         stats: [
             { stat: "Health", minx: 0.2, maxx: 0.3, mins: 40, maxs: 60, percentage: 100 },
@@ -1095,9 +1095,10 @@
             { stat: "Spell Damage", minx: 0.1, maxx: 0.2, mins: 200, maxs: 500, percentage: 75 }
         ],
         minrarity: 3, maxrarity: 8,
-        maxarmor: 5
+        maxarmor: 5,
+        maxmana: 10
         },
-
+ 
         MonsterH: {
         stats: [
             { stat: "Health", minx: 0.15, maxx: 0.25, mins: 10, maxs: 20, percentage: 100 },
@@ -1107,7 +1108,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         FanaticH: {
         stats: [
             { stat: "Health", minx: 0.05, maxx: 0.1, mins: 2, maxs: 6, percentage: 100 },
@@ -1117,7 +1118,7 @@
         minrarity: 6, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         SerpentH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
@@ -1129,7 +1130,7 @@
         maxarmor: 5,
         maxmana: 10
         },
-
+ 
         WarlockH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
@@ -1140,7 +1141,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         RoninH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 10, maxs: 20, percentage: 100 },
@@ -1151,7 +1152,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         FlameH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 4, maxs: 10, percentage: 100 },
@@ -1161,7 +1162,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         DragonH: {
         stats: [
             { stat: "Health", minx: 0.1, maxx: 0.15, mins: 20, maxs: 30, percentage: 100 },
@@ -1171,7 +1172,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         SentinelH: {
         stats: [
             { stat: "Health", minx: 0.25, maxx: 0.35, mins: 20, maxs: 30, percentage: 100 },
@@ -1181,7 +1182,7 @@
         minrarity: 4, maxrarity: 8,
         maxarmor: 5
         },
-
+ 
         DivingH: {
         stats: [
             { stat: "Health", minx: 0.25, maxx: 0.35, mins: 30, maxs: 60, percentage: 100 },
@@ -1205,10 +1206,10 @@ function updateResultsHeader() {
     const selectedEquipment = equipmentSelect.value;
     const resultTableHeader = document.querySelector('#Results thead');
     const resultTableBody = document.querySelector('#Results tbody');
-    
+ 
     // Clear previous rows
     resultTableBody.innerHTML = '';
-
+ 
     // Reset header
     resultTableHeader.innerHTML = `<tr>
         <th>Stat</th>
@@ -1216,7 +1217,7 @@ function updateResultsHeader() {
         <th>Maximum</th>
         <th>%</th>
     </tr>`;
-
+ 
     // List of stats that should always display as percentages
     const percentageStats = [
         "Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", 
@@ -1230,23 +1231,21 @@ function updateResultsHeader() {
         "Stun Resistance", "Throw Damage", "Poison Damage", "Knockback Resistance", 
         "Oxygen Boost", "Water Breathing", "Panic Resist", "Recycle Throwable", "Hp %"
     ];
-
-    // Get rarity value and apply rarity constraints
-    let rarity = getRarityValue();
-    if (rarity < equipment.minrarity) rarity = equipment.minrarity;
-    if (rarity > equipment.maxrarity) rarity = equipment.maxrarity;
-    if (rarity === null || rarity === undefined) rarity = 0;
-
+ 
+    // Get rarity value
+    const rarity = getRarityValue();
+ 
     // Get level from dropdown
     const level = parseInt(document.getElementById('level').value);
-
-    // Retrieve selected equipment stats
-    let equipment = equipmentStats[selectedEquipment];
-    if (!equipment) {
+ 
+    // Retrieve the selected equipment stats
+    let equipment = (equipmentStats[selectedEquipment]?.stats) || [];
+ 
+    if (equipment.length === 0) {
         resultTableBody.innerHTML = `<tr><td colspan="4">No results for selected equipment.</td></tr>`;
-        return;
+        return; // Exit if no equipment found
     }
-
+ 
     // List of stats that should be rounded to whole numbers
     const roundStats = [
         "Health", 
@@ -1279,7 +1278,7 @@ function updateResultsHeader() {
         "Quick Hit 2", 
         "AOE"
     ];
-
+ 
     // Object defining minimum values for certain stats
     const minValues = {
         "Extra Coin": 1,
@@ -1304,7 +1303,7 @@ function updateResultsHeader() {
         "Quick Hit 2": 1,
         "AOE": 1
     };
-
+ 
     // Object defining maximum values for certain stats
     const maxValues = {
         "Critical Chance": 100,
@@ -1334,7 +1333,7 @@ function updateResultsHeader() {
         "Mana Efficiency": 30,
         "Paralysis Chance": 50,
         "Cast Surge": 300,
-        "Ore Explorer": 30, // Chest: 30, Helm: 20
+        "Ore Explorer": 30, // MinerC and MinerH have minore and maxore assigned, waiting on code to implement maxValues
         "Reflect Chance": 15,
         "Coin Magnet": 2,
         "Spell Damage": 200,
@@ -1352,7 +1351,7 @@ function updateResultsHeader() {
         "Haste Chance": 5,
         "Quick Hit 3": 1,
         "Double Item Chance": 30,
-        // "Mana %": 10,  Uncapped Longstaff, capped for Magician-H and Serpent-H
+        // "Mana %": 10,  minmana and maxmana have been assigned, waiting on code to implement maxValues
         "Crit 2 Combo": 1,
         "Knockback 3": 1,
         "Controller": 1,
@@ -1367,113 +1366,89 @@ function updateResultsHeader() {
         "Hp %": 20,
         "AOE": 2
     };
-
+ 
+      // Extract minrarity and maxrarity from the constants
+    let minrarity, maxrarity; // <-- define them outside first
+ 
     // Check if selected equipment exists in the equipmentStats object
     if (equipmentStats[selectedEquipment]) {
-        // Extract minrarity and maxrarity from the constants
-    // Apply predefined min/max constraints if they exist
-    if (minValues[item.stat] !== undefined) {
-        minResult = Math.max(minResult, minValues[item.stat]);
-    }
-    if (maxValues[item.stat] !== undefined) {
-        maxResult = Math.min(maxResult, maxValues[item.stat]);
-    }
-
-    // Apply equipment-specific constraints for Range and Armor (only once)
-    if (item.stat === "Range" && equipment.minrange !== undefined && equipment.maxrange !== undefined) {
-        minResult = Math.max(minResult, equipment.minrange);
-        maxResult = Math.min(maxResult, equipment.maxrange);
-    }
-    if (item.stat === "Armor" && equipment.maxarmor !== undefined) {
-        maxResult = Math.min(maxResult, equipment.maxarmor);
-    }
-        resultTableBody.appendChild(rarityRow);
-    }
-
+ 
+    // Check if selected equipment exists in the equipmentStats object
+    if (equipmentStats[selectedEquipment]) {
+        minrarity = equipmentStats[selectedEquipment].minrarity;
+        maxrarity = equipmentStats[selectedEquipment].maxrarity;
+    }}
+ 
     // Loop through equipment stats
-    equipment.stats.forEach(item => {
-        let minResult, maxResult;
-
+    equipment.forEach(item => {
+        let minresult, maxresult;
+ 
         // Calculate base values
         let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
                   item.mins + ((item.maxs - item.mins) / 2 * rarity);
         let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
                   item.maxs + ((item.maxs - item.mins) / 2 * rarity);
-
+ 
     // Round values if the stat is in the roundStats list
     if (roundStats.includes(item.stat)) {
-        minResult = Math.round(minCalc);
-        maxResult = Math.round(maxCalc);
+        minresult = Math.round(minCalc);
+        maxresult = Math.round(maxCalc);
     } else { 
         // Keep decimal places for other stats
-        minResult = (minCalc / 100).toFixed(2);
-        maxResult = (maxCalc / 100).toFixed(2);
+        minresult = (minCalc / 100).toFixed(2);
+        maxresult = (maxCalc / 100).toFixed(2);
     }
-
-    // Apply predefined min/max constraints if they exist
-    if (minValues[item.stat] !== undefined) {
-        minResult = Math.max(minResult, minValues[item.stat]);
-    }
+ 
+    // Apply max value cap if the stat has a limit
     if (maxValues[item.stat] !== undefined) {
-        maxResult = Math.min(maxResult, maxValues[item.stat]);
+        minresult = Math.min(minresult, maxValues[item.stat]);
+        maxresult = Math.min(maxresult, maxValues[item.stat]);
     }
-
-    // Apply equipment-specific constraints for Range and Armor (only once)
-    if (item.stat === "Range" && equipment.minrange !== undefined && equipment.maxrange !== undefined) {
-        minResult = Math.max(minResult, equipment.minrange);
-        maxResult = Math.min(maxResult, equipment.maxrange);
-    }
-    if (item.stat === "Armor" && equipment.maxarmor !== undefined) {
-        maxResult = Math.min(maxResult, equipment.maxarmor);
-    }
-
+ 
     // Add percentage symbol if stat should display as percentage
     if (percentageStats.includes(item.stat)) {
-        minResult += '%';
-        maxResult += '%';
+        minresult += '%';
+        maxresult += '%';
     }
-
+ 
     // Add result row to table
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${item.stat}</td><td>${minResult}</td><td>${maxResult}</td><td>${item.percentage}%</td>`;
+    row.innerHTML = `<td>${item.stat}</td><td>${minresult}</td><td>${maxresult}</td><td>${item.percentage}%</td>`;
     resultTableBody.appendChild(row);
     });
+ 
+    // Append Rarity row at the bottom
+    const rarityRow = document.createElement("tr");
+    rarityRow.innerHTML = `
+        <td><strong>Rarity:</strong></td>
+        <td colspan="3">${minrarity} - ${maxrarity}</td>
+    `;
+    resultTableBody.appendChild(rarityRow);
 }
-
+ 
     // Event listener for changes in selection
     document.getElementById('equipment').addEventListener('change', updateResultsHeader);
     document.getElementById('rarity').addEventListener('change', updateResultsHeader);
     document.getElementById('level').addEventListener('change', updateResultsHeader);
-
+ 
     // Set default selections and update table on page load
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("equipment").value = "Axe";
         document.getElementById("rarity").value = "Basic";
         document.getElementById("level").value = "1";
-    
+ 
         updateResultsHeader(); // Populate the table immediately
     });
-
+ 
     // Change separator and decimal style based on local
     function formatNumber(value) {
         // Detect user's locale
         const userLocale = navigator.language || 'en-US';
-
+ 
         // Format the number
         return new Intl.NumberFormat(userLocale).format(value);
     }
-
-    // Function to log messages to the page
-//    function logToPage(message) {
-//        const logContainer = document.getElementById('logContainer');
-//        const logMessage = document.createElement('p');
-//        logMessage.textContent = message;
-//        logContainer.appendChild(logMessage);
-
-        // Optionally scroll to the bottom of the log
-//        logContainer.scrollTop = logContainer.scrollHeight;
-//    }
-
+ 
     </script>
 </body>
 </html>
