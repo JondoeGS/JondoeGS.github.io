@@ -110,10 +110,11 @@
  
     <h2>Equipment Stats Look-up</h2>
     <table id="selectOptions">
-    <tr><td>
-    <label for="equipment">Equipment:</label>
+
+    <tr><td>    <!-- Equipment drop down menu -->
+        <label for="equipment">Equipment:</label>
     </td><td>
-    <select id="equipment">
+        <select id="equipment">
  
     <!-- Melee options group -->
  
@@ -218,8 +219,8 @@
 </select>
     </td></tr>
  
-    <tr><td>
-    <label for="rarity">Rarity:</label>
+    <tr><td>    <!-- Rarity drop down menu -->
+        <label for="rarity">Rarity:</label>
     </td><td>
     <select id="rarity">
         <option value="Basic">Basic</option>
@@ -233,8 +234,9 @@
         <option value="Galactic">Galactic</option>
     </select>
     </td></tr>
-    <tr><td>
-    <label for="level">Level:</label>
+
+    <tr><td>    <!-- Level drop down menu -->
+        <label for="level">Level:</label>
     </td><td>
     <!-- Script to populate kept breaking, so levels are hardcoded in -->
     <select id="level">
@@ -350,9 +352,10 @@
         <option value="110">110</option>
     </select>
     </td></tr>
+
     </table>
  
-    <!-- <h2>Stats</h2> -->
+    <!-- Results table -->
     <table id="Results">
         <thead>
             <tr>
@@ -368,7 +371,7 @@
     </table>
  
 <script>
-    // Constant values for each rarity
+    // Rarity name to rarity value conversion
     const rarityValues = {
         "Basic": 0,
         "Common": 1,
@@ -381,7 +384,7 @@
         "Galactic": 8
     };
  
-    // This section has all equipment modifiers. It is case sensitive. 
+    // This section has all equipment stats and modifiers. It is case sensitive. 
     const equipmentStats = {
  
     // Melee weapons stats
@@ -438,7 +441,7 @@
             { stat: "Triple Ore", minx: 0, maxx: 1, mins: 100, maxs: 250, percentage: 25 },
             { stat: "Mining", minx: 0, maxx: 0.0003, mins: 1, maxs: 1, percentage: 75 }
         ],
-        minrarity: 1, maxrarity: 5
+        minrarity: 1, maxrarity: 5,
         },
  
         BattleAxe: {
@@ -520,7 +523,7 @@
             { stat: "Mining", minx: 0, maxx: 0.0003, mins: 1, maxs: 1, percentage: 50 },
             { stat: "Quick Breaking", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 75 }
         ],
-        minrarity: 6, maxrarity: 8
+        minrarity: 6, maxrarity: 8,
         },
  
         DivineBlade: {
@@ -531,7 +534,7 @@
             { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 },
             { stat: "Self Damage", minx: 0, maxx: 0, mins: 0, maxs: 1000, percentage: 95 }
         ],
-        minrarity: 4, maxrarity: 8
+        minrarity: 4, maxrarity: 8,
         },
  
         Slicer: {
@@ -682,7 +685,7 @@
             { stat: "Stun Chance", minx: 0.12, maxx: 0.2, mins: 100, maxs: 500, percentage: 25 }
         ],
         minrarity: 0, maxrarity: 8,
-        minrange: 3, maxrange: 4
+        minrange: 2, maxrange: 3
         },
  
         RecurveBow: {
@@ -693,7 +696,8 @@
             { stat: "Critical Damage", minx: 1.5, maxx: 2, mins: 1000, maxs: 2000, percentage: 75 }
         ],
         minrarity: 0, maxrarity: 8,
-        minrange: 4, maxrange: 5
+        minrange: 4, maxrange: 5,
+        maxcritdmg: 1500
         },
  
         Shuriken: {
@@ -754,7 +758,7 @@
             { stat: "AOE", minx: 0, maxx: 0, mins: 1, maxs: 2, percentage: 75 }
         ],
         minrarity: 4, maxrarity: 8,
-        minrange: 4, maxrange: 5
+        minrange: 5, maxrange: 7
         },
  
         TrinityBow: {
@@ -766,7 +770,7 @@
             { stat: "Quick Hit 3", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 50 }
         ],
         minrarity: 4, maxrarity: 8,
-        minrange: 3, maxrange: 3
+        minrange: 3, maxrange: 4
         },
  
         Gnasher: {
@@ -779,7 +783,7 @@
             { stat: "Quick Hit 2", minx: 0, maxx: 0, mins: 1, maxs: 1, percentage: 25 }
         ],
         minrarity: 4, maxrarity: 8,
-        minrange: 2, maxrange: 4
+        minrange: 3, maxrange: 5
         },
  
         Tendril: {
@@ -861,7 +865,7 @@
         ],
         minrarity: 2, maxrarity: 8,
         maxarmor: 15,
-        maxore: 30
+        maxoreexplorer: 30
         },
  
         HeavyC: {
@@ -1065,7 +1069,7 @@
         ],
         minrarity: 2, maxrarity: 8,
         maxarmor: 5,
-        maxore: 20
+        maxoreexplorer: 20
         },
  
         HeavyH: {
@@ -1207,7 +1211,14 @@
         }
         return "Unknown";
     }
- 
+
+    function toRoman(num) {
+    const romanMap = ["", "I", "II", "III", "IV"];
+        if (isNaN(num) || num < 1) return "I";     // default low-end clamp to "I"
+        if (num >= 4) return "IV";                 // clamp high-end to "IV"
+        return romanMap[num];
+    }
+    
 // Function to update the Results table header and contents based on Equipment selection
 function updateResultsHeader() {
     const equipmentSelect = document.getElementById('equipment');
@@ -1250,7 +1261,7 @@ function updateResultsHeader() {
     let equipment = (equipmentStats[selectedEquipment]?.stats) || [];
  
     if (equipment.length === 0) {
-        resultTableBody.innerHTML = `<tr><td colspan="4">No results for selected equipment.</td></tr>`;
+        resultTableBody.innerHTML = `<tr><td colspan="4">ERROR. Contact @jondoe on Discord.</td></tr>`;
         return; // Exit if no equipment found
     }
  
@@ -1387,22 +1398,32 @@ function updateResultsHeader() {
         maxrarity = equipmentStats[selectedEquipment].maxrarity;
     }}
 
+    // Stats that convert to Roman Numerals
+    const romanNumeralStats = [
+        "Piercing",
+        "Mining" //,
+        // "AOE"
+    ];
+
+    // Stats with variable minimum stats as defined in equipmentStats
     const statMinCapKeys = {
         "Range": "minrange"
     };
 
+    // Stats with variable maximum stats as defined in equipmentStats
     const statMaxCapKeys = {
+        "Range": "maxrange",
         "Armor": "maxarmor",
         "Mana %": "maxmana",
-        "Ore Explorer": "maxore",
-        "Range": "maxrange"
+        "Ore Explorer": "maxoreexplorer",
+        "Critical Damage": "maxcritdmg"
     };
  
     // Loop through equipment stats
     equipment.forEach(item => {
         let minresult, maxresult;
  
-        // Calculate base values
+        // Calculate minimum and maximum values
         let minCalc = (item.minx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
                   item.mins + ((item.maxs - item.mins) / 2 * rarity);
         let maxCalc = (item.maxx + ((item.maxx - item.minx) / 2 * rarity)) * (level ** 2) + 
@@ -1445,11 +1466,29 @@ function updateResultsHeader() {
         minresult += '%';
         maxresult += '%';
     }
+
+    // Convert numeric values into Roman Numerals if assigned
+    if (romanNumeralStats.includes(item.stat)) {
+        minresult = toRoman(parseInt(minresult));
+        maxresult = toRoman(parseInt(maxresult));
+    }
  
     // Add result row to table
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${item.stat}</td><td>${minresult}</td><td>${maxresult}</td><td>${item.percentage}%</td>`;
-    resultTableBody.appendChild(row);
+        let displayMin = minresult;
+        let displayMax = maxresult;
+
+        // Format numbers unless they already contain text (like %, or Roman numerals)
+        if (!isNaN(minresult)) displayMin = formatNumber(minresult);
+        if (!isNaN(maxresult)) displayMax = formatNumber(maxresult);
+
+        row.innerHTML = `
+            <td>${item.stat}</td>
+            <td>${displayMin}</td>
+            <td>${displayMax}</td>
+            <td>${item.percentage}%</td>
+        `;
+        resultTableBody.appendChild(row);
     });
  
     // Append Rarity row at the bottom
@@ -1458,7 +1497,7 @@ function updateResultsHeader() {
 
     const rarityRow = document.createElement("tr");
     rarityRow.innerHTML = `
-        <td><strong>Rarity:</strong></td>
+        <td>Rarity:</td>
         <td colspan="3">${minRarityName}  -  ${maxRarityName}</td>
     `;
     resultTableBody.appendChild(rarityRow);
@@ -1477,6 +1516,10 @@ function updateResultsHeader() {
  
         updateResultsHeader(); // Populate the table immediately
     });
+
+    // For debugging purposes
+//    const formatted = formatNumber(1234567.89);
+//        console.log(formatted);
  
     // Change separator and decimal style based on local
     function formatNumber(value) {
@@ -1485,8 +1528,9 @@ function updateResultsHeader() {
  
         // Format the number
         return new Intl.NumberFormat(userLocale).format(value);
+    //  return new Intl.NumberFormat('fr-FR').format(value);  // For debugging purposes
     }
  
-    </script>
+</script>
 </body>
 </html>
