@@ -104,9 +104,89 @@
         td:nth-child(n+2), th:nth-child(n+2) {
             text-align: center;
         }
+
+    #menuToggle {
+        display: none;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 28px;
+        color: #f3d4aa;
+        background-color: #363b77;
+        padding: 5px 10px;
+        border: 1px solid #c69da3;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 2000;
+    }
+
+    #menu {
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        background-color: #363b77;
+        border: 1px solid #c69da3;
+        font-size: 14px;
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #menu table {
+        border-collapse: collapse;
+        width: 140px;
+    }
+
+    #menu th {
+        background-color: #363b77;
+        color: #f3d4aa;
+        padding: 8px;
+        border-bottom: 1px solid #c69da3;
+        text-align: center;
+    }
+
+    #menu td {
+        padding: 6px;
+        border-top: 1px solid #c69da3;
+    }
+
+    #menu a {
+        color: #f3d4aa;
+        text-decoration: none;
+    }
+
+    #menu a:hover {
+        text-decoration: underline;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        #menuToggle {
+            display: block;
+        }
+
+        #menu {
+            transform: translateX(-200px); /* Hidden by default */
+        }
+
+        #menu.show {
+            transform: translateX(0); /* Slide in */
+        }
+    }
     </style>
 </head>
 <body>
+
+            <!-- Corner menu for additional links -->
+    <div id="menuToggle" onclick="toggleMenu()">☰</div>
+    <div id="menu">
+        <table>
+            <tbody>
+            <tr><th>Additional Tools</th></tr>
+            <tr><td><a href="https://jondoegs.github.io/glacier.htm" target="_blank">Glacier Damage Calculator</a></td></tr>
+            <!-- <tr><td><a href="https://jondoegs.github.io/" target="_blank">Equipment Stats Lookup</a></td></tr> -->
+            </tbody>
+        </table>
+    </div>
  
     <h2>Equipment Stats Look-up</h2>
     <table id="selectOptions">
@@ -371,6 +451,12 @@
     </table>
  
 <script>
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+
     // Rarity name to rarity value conversion
     const rarityValues = {
         "Basic": 0,
