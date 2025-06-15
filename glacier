@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glacier Damage Calculator</title>
+  <style>
+	body {
+  		background-color: #0d0d2b;
+  		color: #f3d4aa;
+  		display: flex;
+  		flex-direction: column;
+  		align-items: center;
+  		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  		min-height: 100vh;
+  		margin: 0;
+  		padding: 20px;
+	}
+ 
+	h2 {
+  		margin-top: 20px;
+  		color: #f3d4aa;
+  		font-size: 28px;
+  		text-align: center;
+	}
+ 
+	table.calc-table {
+  		width: 40%;
+  		max-width: 800px;
+  		margin: 20px auto;
+  		background-color: #1b1f42;
+  		border-collapse: collapse;
+  		border-radius: 8px;
+  		overflow: hidden;
+  		box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+	}
+ 
+	table.calc-table th,
+	table.calc-table td {
+  		border: 1px solid #2f3266;
+  		padding: 12px 16px;
+  		color: #f3d4aa;
+	}
+ 
+	table.calc-table th {
+  		background-color: #2a2e5a;
+  		font-weight: bold;
+	}
+ 
+	table.calc-table tr:nth-child(even) {
+  		background-color: #20244e;
+	}
+ 
+	select,
+	input[type="number"] {
+  		width: 100%;
+  		padding: 8px;
+  		font-size: 16px;
+  		color: #f3d4aa;
+  		background-color: #2f3266;
+  		border: 1px solid #000;
+  		border-radius: 6px;
+  		box-sizing: border-box;
+	}
+ 
+	select:focus,
+	input:focus {
+  		outline: none;
+  		border-color: #6fa3ef;
+  		background-color: #3a3e7a;
+	}
+ 
+	@media (max-width: 768px) {
+  		table.calc-table {
+    	width: 100%;
+    	font-size: 14px;
+  	}
+ 
+  	select,
+  	input {
+    	font-size: 14px;
+  	}
+	}
+  </style>
+</head>
+<body>
+ 
+  <h2>Glacier Damage Calculator</h2>
+ 
+  <table id="Build" class="calc-table">
+    <tbody id="buildBody">
+      <tr><td>
+        <label for="LEVEL">Wizard Level:</label>
+      </td><td>
+        <select id="LEVEL">
+			<!-- Generated from script -->
+        </select>
+    </td></tr>
+ 
+    <tr><td>
+      <label for="WEAPONMP">Weapon Mp:</label>
+    </td><td>
+      <input id="WEAPONMP" type="number" value="0">
+    </td></tr>
+ 
+    <tr><td>
+      <label for="CASTSURGE">Cast Surge %:</label>
+    </td><td>
+      <input id="CASTSURGE" type="number" value="0">
+    </td></tr>
+ 
+    <tr><td>
+      <label for="AVAILABLESP">Available Skill Points:</label>
+    </td><td>
+      <input id="AVAILABLESP" type="number" value="0">
+    </td></tr>
+ 
+    <tr><td>
+      <label for="EMPOWERMENT">Empowerment:</label>
+    </td><td>
+      <select id="EMPOWERMENT">
+        <option value="FALSE">FALSE</option>
+        <option value="TRUE">TRUE</option>
+      </select>
+    </td></tr>
+ 
+    <tr><td>
+      <label for="MORGANA">Morgana 10% Buff:</label>
+    </td><td>
+      <select id="MORGANA">
+        <option value="FALSE">FALSE</option>
+        <option value="TRUE">TRUE</option>
+      </select>
+    </td></tr>
+ 
+    <tr><td>
+      <label for="SPELLDAMAGE">Bonus Spell Damage:</label>
+    </td><td>
+      <input id="SPELLDAMAGE" type="number" value="0">
+    </td></tr>
+ 
+    <tr><td>
+      <label for="FORKMP">Fork Mp Upgrade</label>
+    </td><td>
+      <input id="FORKMP" type="number" value="0">
+    </td></tr>
+ 
+    <tr><td>
+        <label for="ADVENTUREMP">Adventure Mp Ranks:</label>
+      </td><td>
+        <select id="ADVENTUREMP">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+      </td></tr>
+ 
+    <tr><td>
+        <label for="ADVENTURESD">Adventure Spell Damage Ranks:</label>
+      </td><td>
+        <select id="ADVENTURESD">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        </select>
+      </td></tr>
+ 
+    </tbody>
+  </table>
+ 
+  <table id="Results" class="calc-table">
+	 <thead align="center">
+		<tr><td colspan="2">
+        Skill Point Distribution
+      </td></tr>
+	 </thead>
+    <tbody id="resultsBody">
+ 
+      <tr><td>
+  Glacier
+</td><td id="glacierSp">
+  <!-- AVAILABLESP-Y -->
+</td></tr>
+ 
+<tr><td>
+  Magic Power+
+</td><td id="mpSp">
+  <!-- Solve for Y -->
+</td></tr>
+ 
+<tr><td>
+  Glacier Damage
+</td><td id="glacierDmg">
+  <!-- Solve equation -->
+</td></tr>
+ 
+<tr><td>
+  Mana Sacrifice
+</td><td id="manaSacrifice">
+  <!-- Double Glacier Damage -->
+</td></tr>
+ 
+    </tbody>
+  </table>
+ 
+  <script>
+    // Generate LEVEL dropdown options dynamically
+    const levelSelect = document.getElementById('LEVEL');
+    for (let i = 15; i <= 110; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      levelSelect.appendChild(opt);
+    }
+ 
+    // Create helper function for equation
+    function calculateGlacierDamage() {
+      const LEVEL = parseInt(document.getElementById('LEVEL').value);
+      const WEAPONMP = parseFloat(document.getElementById('WEAPONMP').value) || 0;
+      const CASTSURGE = parseFloat(document.getElementById('CASTSURGE').value) || 0;
+      const AVAILABLESP = parseInt(document.getElementById('AVAILABLESP').value);
+      const EMPOWERMENT = document.getElementById('EMPOWERMENT').value === 'TRUE';
+      const MORGANA = document.getElementById('MORGANA').value === 'TRUE';
+      const SPELLDAMAGE = parseFloat(document.getElementById('SPELLDAMAGE').value) || 0;
+      const FORKMP = parseFloat(document.getElementById('FORKMP').value) || 0;
+      const ADVENTUREMP = parseInt(document.getElementById('ADVENTUREMP').value);
+      const ADVENTURESD = parseInt(document.getElementById('ADVENTURESD').value);
+ 
+      let bestY = 0;
+      let bestDamage = 0;
+ 
+      for (let Y = 0; Y <= AVAILABLESP; Y++) {
+        const mpGain = 0.2 * LEVEL ** 2 + 3;
+        const mpScale = 1 + Y * (EMPOWERMENT ? 10 : 5) / 100;
+        const totalMP = (mpGain * mpScale + WEAPONMP);
+ 
+        const glacierBonus = 1 + ((800 + (AVAILABLESP - Y) * 25) / 100)
+          + (CASTSURGE + ADVENTURESD * 10 + SPELLDAMAGE) / 100;
+ 
+        const extraBuff = 1 + ((MORGANA ? 10 : 0) + (ADVENTUREMP > 0 ? 20 + 5 * (ADVENTUREMP - 1) : 0) + FORKMP) / 100;
+ 
+        const totalDamage = totalMP * glacierBonus * extraBuff;
+ 
+        if (totalDamage > bestDamage) {
+          bestDamage = totalDamage;
+          bestY = Y;
+        }
+      }
+ 
+      // Update table with results
+      document.getElementById('glacierSp').textContent = AVAILABLESP - bestY;
+      document.getElementById('mpSp').textContent = bestY;
+      document.getElementById('glacierDmg').textContent = Math.round(bestDamage).toLocaleString();
+      document.getElementById('manaSacrifice').textContent = Math.round(bestDamage * 2).toLocaleString();
+    }
+ 
+    // Attach event listeners to inputs
+    document.querySelectorAll('select, input').forEach(el => {
+      el.addEventListener('change', calculateGlacierDamage);
+    });
+  </script>
+</body>
+</html>
