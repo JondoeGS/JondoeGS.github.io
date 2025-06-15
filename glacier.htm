@@ -80,13 +80,98 @@
     	font-size: 14px;
   	}
 	}
+
+  #menuToggle {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 28px;
+    color: #f3d4aa;
+    background-color: #363b77;
+    padding: 5px 10px;
+    border: 1px solid #c69da3;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 2000;
+  }
+
+  #menu {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background-color: #363b77;
+    border: 1px solid #c69da3;
+    font-size: 14px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #menu table {
+    border-collapse: collapse;
+    width: 140px;
+  }
+
+  #menu th {
+    background-color: #363b77;
+    color: #f3d4aa;
+    padding: 8px;
+    border-bottom: 1px solid #c69da3;
+    text-align: center;
+  }
+
+  #menu td {
+    padding: 6px;
+    border-top: 1px solid #c69da3;
+  }
+
+  #menu a {
+    color: #f3d4aa;
+    text-decoration: none;
+  }
+
+  #menu a:hover {
+    text-decoration: underline;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    #menuToggle {
+      display: block;
+    }
+
+    #menu {
+      transform: translateX(-200px); /* Hidden by default */
+    }
+
+    #menu.show {
+      transform: translateX(0); /* Slide in */
+    }
+  }
   </style>
 </head>
 <body>
+
+  <div id="menuToggle" onclick="toggleMenu()">☰</div>
+
+  <div id="menu">
+    <table>
+      <tbody>
+        <tr><th>Additional Tools</th></tr>
+        <tr><td><a href="https://jondoegs.github.io/test.htm" target="_blank">Equipment Stats Lookup (test)</a></td></tr>
+        <tr><td><a href="https://jondoegs.github.io/" target="_blank">Main Page</a></td></tr>
+        <!-- Add more links here -->
+      </tbody>
+    </table>
+  </div>
  
   <h2>Glacier Damage Calculator</h2>
  
-  <table id="Build" class="calc-table">
+  <table id="Build" class="calc-table"> 
+  <colgroup>
+    <col style="width: 55%;">
+    <col style="width: 45%;">
+  </colgroup>
     <tbody id="buildBody">
       <tr><td>
         <label for="LEVEL">Wizard Level:</label>
@@ -176,39 +261,49 @@
   <table id="Results" class="calc-table">
 	 <thead align="center">
 		<tr><td colspan="2">
-        Skill Point Distribution
+        <strong>Skill Point Distribution</strong>
       </td></tr>
 	 </thead>
+  <colgroup>
+    <col style="width: 55%;">
+    <col style="width: 45%;">
+  </colgroup>
     <tbody id="resultsBody">
  
       <tr><td>
-  Glacier
-</td><td id="glacierSp">
-  <!-- AVAILABLESP-Y -->
-</td></tr>
+        Glacier
+      </td><td id="glacierSp">
+        <!-- AVAILABLESP-Y -->
+      </td></tr>
  
-<tr><td>
-  Magic Power+
-</td><td id="mpSp">
-  <!-- Solve for Y -->
-</td></tr>
+      <tr><td>
+        Magic Power+
+      </td><td id="mpSp">
+        <!-- Solve for Y -->
+      </td></tr>
  
-<tr><td>
-  Glacier Damage
-</td><td id="glacierDmg">
-  <!-- Solve equation -->
-</td></tr>
+      <tr><td>
+        Glacier Damage
+      </td><td id="glacierDmg">
+        <!-- Solve equation -->
+      </td></tr>
  
-<tr><td>
-  Mana Sacrifice
-</td><td id="manaSacrifice">
-  <!-- Double Glacier Damage -->
-</td></tr>
+      <tr><td>
+        Mana Sacrifice
+      </td><td id="manaSacrifice">
+        <!-- Double Glacier Damage -->
+      </td></tr>
  
     </tbody>
   </table>
  
   <script>
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+
     // Generate LEVEL dropdown options dynamically
     const levelSelect = document.getElementById('LEVEL');
     for (let i = 15; i <= 110; i++) {
