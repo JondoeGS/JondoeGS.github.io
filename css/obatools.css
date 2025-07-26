@@ -1,0 +1,181 @@
+/* Base layout */
+body {
+  background-color: #0d0d2b;
+  color: #f3d4aa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Headings */
+h2 {
+  margin-top: 20px;
+  color: #f3d4aa;
+  font-size: 28px;
+  text-align: center;
+}
+
+/* Table layout for calculators */
+table.calc-table, #selectOptions, #Results {
+  width: 40%;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #1b1f42;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#selectOptions, #Results {
+  width: 50%;
+}
+
+table.calc-table th, table.calc-table td,
+#selectOptions th, #selectOptions td,
+#Results th, #Results td {
+  border: 1px solid #2f3266;
+  padding: 12px 16px;
+  color: #f3d4aa;
+}
+
+table.calc-table th,
+#selectOptions th,
+#Results th {
+  background-color: #2a2e5a;
+  font-weight: bold;
+}
+
+table.calc-table tr:nth-child(even),
+#selectOptions tr:nth-child(even),
+#Results tr:nth-child(even) {
+  background-color: #20244e;
+}
+
+/* Inputs and selects */
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  color: #f3d4aa;
+  background-color: #2f3266;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+select:focus,
+input:focus {
+  outline: none;
+  border-color: #6fa3ef;
+  background-color: #3a3e7a;
+}
+
+/* Narrow tables */
+table, select {
+  max-width: 125px;
+}
+
+#Results td:nth-child(n+2),
+#Results th:nth-child(n+2) {
+  text-align: center;
+}
+
+td:nth-child(1), th:nth-child(1) {
+  text-align: center;
+}
+
+td:nth-child(2), th:nth-child(2) {
+  text-align: left;
+}
+
+/* Corner menu toggle */
+#menuToggle {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  color: #f3d4aa;
+  background-color: #363b77;
+  padding: 5px 10px;
+  border: 1px solid #c69da3;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 2000;
+}
+
+/* Sidebar menu */
+#menu {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background-color: #363b77;
+  border: 1px solid #c69da3;
+  font-size: 14px;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+#menu table {
+  border-collapse: collapse;
+  width: 140px;
+}
+
+#menu th {
+  background-color: #363b77;
+  color: #f3d4aa;
+  padding: 8px;
+  border-bottom: 1px solid #c69da3;
+  text-align: center;
+}
+
+#menu td {
+  padding: 6px;
+  border-top: 1px solid #c69da3;
+}
+
+#menu a {
+  color: #f3d4aa;
+  text-decoration: none;
+}
+
+#menu a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  table.calc-table,
+  #selectOptions,
+  #Results {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  select,
+  input {
+    font-size: 14px;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  #menuToggle {
+    display: block;
+  }
+
+  #menu {
+    transform: translateX(-200px); /* Hidden by default */
+  }
+
+  #menu.show {
+    transform: translateX(0); /* Slide in */
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/obatools.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archer Damage Optimizer</title>
+  <table class="calc-table">
+    <tr><th>Output</th><th>Result</th></tr>
+    <tr><td>Best SU (Range)</td><td id="bestSU"></td></tr>
+    <tr><td>Best CU (Crit)</td><td id="bestCU"></td></tr>
+    <tr><td>Best UP (Upgrade Damage)</td><td id="bestUP"></td></tr>
+    <tr><td>Best UC (Upgrade Crit)</td><td id="bestUC"></td></tr>
+    <tr><td>Max Damage</td><td id="maxDamage"></td></tr>
+  </table>
+<script src="js/obatools.js"></script>
+
+  <script>
+    function calculate() {
+      const PL = +document.getElementById('pl').value;
+      const SP = +document.getElementById('sp').value;
+      const BD = +document.getElementById('bd').value;
+      const BC = +document.getElementById('bc').value;
+      const totalSlots = +document.getElementById('upgrades').value;
+      const SD = 1;
+      const SC = 1;
+
+      let bestSU = 0;
+      let bestCU = 0;
+      let bestUP = 0;
+      let bestUC = 0;
+      let maxDamage = 0;
+
+      const baseCore = 0.14 * PL * PL + 2;
+
+      for (let UP = 0; UP <= totalSlots; UP++) {
+        const UC = totalSlots - UP;
+        const WD = BD * (1 + 0.25 * UP);
+        const WC = BC * (1 + 0.25 * UC);
+
+        for (let SU = 0; SU <= SP; SU++) {
+          const CU = SP - SU;
+          const rangeFactor = 1.05 + (SD * 5 * SU) / 100;
+          const critFactor = 2 + ((SC * 5 * CU) + WC) / 100;
+          const baseDamage = baseCore * rangeFactor + WD;
+          const totalDamage = baseDamage * critFactor;
+
+          if (totalDamage > maxDamage) {
+            maxDamage = totalDamage;
+            bestSU = SU;
+            bestCU = CU;
+            bestUP = UP;
+            bestUC = UC;
+          }
+        }
+      }
+
+      document.getElementById('bestSU').textContent = bestSU;
+      document.getElementById('bestCU').textContent = bestCU;
+      document.getElementById('bestUP').textContent = bestUP;
+      document.getElementById('bestUC').textContent = bestUC;
+      document.getElementById('maxDamage').textContent = maxDamage.toFixed(2);
+    }
+  </script>
+</body>
+</html>
