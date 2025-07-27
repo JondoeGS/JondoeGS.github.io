@@ -77,7 +77,7 @@ input:focus {
 }
 
 /* Narrow tables */
-table, select {
+select {
   max-width: 125px;
 }
 

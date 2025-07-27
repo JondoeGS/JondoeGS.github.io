@@ -358,7 +358,7 @@ function updateResultsHeader() {
         <td>${isPercentage ? "✓" : ""}</td>
     `;
     resultTableBody.appendChild(row);
-});
+    });
 
  
     // List of stats that should be rounded to whole numbers
@@ -739,62 +739,65 @@ function updateResultsHeader() {
   </table>
   
   <script>
+// Populate LEVEL dropdown
+document.addEventListener('DOMContentLoaded', () => {
+  const levelSelect = document.getElementById('LEVEL');
+  for (let i = 15; i <= 110; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    levelSelect.appendChild(opt);
+  }
 
-    // Generate LEVEL dropdown options dynamically
-    const levelSelect = document.getElementById('LEVEL');
-    for (let i = 15; i <= 110; i++) {
-      const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = i;
-      levelSelect.appendChild(opt);
+  // Attach event listeners after DOM is ready
+  document.querySelectorAll('#glacierTab select, #glacierTab input').forEach(el => {
+    el.addEventListener('change', calculateGlacierDamage);
+  });
+
+  // Trigger initial calculation
+  calculateGlacierDamage();
+});
+
+// Glacier calculator logic
+function calculateGlacierDamage() {
+  const LEVEL = parseInt(document.getElementById('LEVEL').value);
+  const WEAPONMP = parseFloat(document.getElementById('WEAPONMP').value) || 0;
+  const CASTSURGE = parseFloat(document.getElementById('CASTSURGE').value) || 0;
+  const AVAILABLESP = parseInt(document.getElementById('AVAILABLESP').value);
+  const EMPOWERMENT = document.getElementById('EMPOWERMENT').value === 'TRUE';
+  const MORGANA = document.getElementById('MORGANA').value === 'TRUE';
+  const SPELLDAMAGE = parseFloat(document.getElementById('SPELLDAMAGE').value) || 0;
+  const FORKMP = parseFloat(document.getElementById('FORKMP').value) || 0;
+  const ADVENTUREMP = parseInt(document.getElementById('ADVENTUREMP').value);
+  const ADVENTURESD = parseInt(document.getElementById('ADVENTURESD').value);
+
+  let bestY = 0;
+  let bestDamage = 0;
+
+  for (let Y = 0; Y <= AVAILABLESP; Y++) {
+    const mpGain = 0.2 * LEVEL ** 2 + 3;
+    const mpScale = 1 + Y * (EMPOWERMENT ? 10 : 5) / 100;
+    const totalMP = mpGain * mpScale + WEAPONMP;
+
+    const glacierBonus = 1 + ((800 + (AVAILABLESP - Y) * 25) / 100)
+      + (CASTSURGE + ADVENTURESD * 10 + SPELLDAMAGE) / 100;
+
+    const extraBuff = 1 + ((MORGANA ? 10 : 0) + (ADVENTUREMP > 0 ? 20 + 5 * (ADVENTUREMP - 1) : 0) + FORKMP) / 100;
+
+    const totalDamage = totalMP * glacierBonus * extraBuff;
+
+    if (totalDamage > bestDamage) {
+      bestDamage = totalDamage;
+      bestY = Y;
     }
- 
-    // Create helper function for equation
-    function calculateGlacierDamage() {
-      const LEVEL = parseInt(document.getElementById('LEVEL').value);
-      const WEAPONMP = parseFloat(document.getElementById('WEAPONMP').value) || 0;
-      const CASTSURGE = parseFloat(document.getElementById('CASTSURGE').value) || 0;
-      const AVAILABLESP = parseInt(document.getElementById('AVAILABLESP').value);
-      const EMPOWERMENT = document.getElementById('EMPOWERMENT').value === 'TRUE';
-      const MORGANA = document.getElementById('MORGANA').value === 'TRUE';
-      const SPELLDAMAGE = parseFloat(document.getElementById('SPELLDAMAGE').value) || 0;
-      const FORKMP = parseFloat(document.getElementById('FORKMP').value) || 0;
-      const ADVENTUREMP = parseInt(document.getElementById('ADVENTUREMP').value);
-      const ADVENTURESD = parseInt(document.getElementById('ADVENTURESD').value);
- 
-      let bestY = 0;
-      let bestDamage = 0;
- 
-      for (let Y = 0; Y <= AVAILABLESP; Y++) {
-        const mpGain = 0.2 * LEVEL ** 2 + 3;
-        const mpScale = 1 + Y * (EMPOWERMENT ? 10 : 5) / 100;
-        const totalMP = (mpGain * mpScale + WEAPONMP);
- 
-        const glacierBonus = 1 + ((800 + (AVAILABLESP - Y) * 25) / 100)
-          + (CASTSURGE + ADVENTURESD * 10 + SPELLDAMAGE) / 100;
- 
-        const extraBuff = 1 + ((MORGANA ? 10 : 0) + (ADVENTUREMP > 0 ? 20 + 5 * (ADVENTUREMP - 1) : 0) + FORKMP) / 100;
- 
-        const totalDamage = totalMP * glacierBonus * extraBuff;
- 
-        if (totalDamage > bestDamage) {
-          bestDamage = totalDamage;
-          bestY = Y;
-        }
-      }
- 
-      // Update table with results
-      document.getElementById('glacierSp').textContent = AVAILABLESP - bestY;
-      document.getElementById('mpSp').textContent = bestY;
-      document.getElementById('glacierDmg').textContent = Math.round(bestDamage).toLocaleString();
-      document.getElementById('manaSacrifice').textContent = Math.round(bestDamage * 2).toLocaleString();
-    }
- 
-    // Attach event listeners to inputs
-    document.querySelectorAll('select, input').forEach(el => {
-      el.addEventListener('change', calculateGlacierDamage);
-    });
-  </script>
+  }
+
+  document.getElementById('glacierSp').textContent = AVAILABLESP - bestY;
+  document.getElementById('mpSp').textContent = bestY;
+  document.getElementById('glacierDmg').textContent = Math.round(bestDamage).toLocaleString();
+  document.getElementById('manaSacrifice').textContent = Math.round(bestDamage * 2).toLocaleString();
+}
+</script>
   </div>
 
   <!-- Archer Damage Optimizer -->
@@ -860,5 +863,7 @@ function updateResultsHeader() {
   <!-- Scripts -->
   <script src="js/obatools.js"></script>
   <script src="js/equipment-data.js"></script>
+  
+  
 </body>
 </html>
