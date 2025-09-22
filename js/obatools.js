@@ -54,7 +54,7 @@ function initEquipmentStats() {
   });
 
   // Populate levels
-  for (let i = 1; i <= 200; i++) {
+  for (let i = 1; i <= 110; i++) {
     const option = document.createElement('option');
     option.value = i;
     option.textContent = i;
