@@ -339,14 +339,16 @@ function updateResultsHeader() {
 
   const roundStats = [
     "Health", "Damage", "Mana", "Mp Damage", "Extra Coin", "Burn Damage", "Bleed", "+1 Stew Output", "Multi-Atk",
-    "Quick Breaking", "Unbinding", "Range", "Ricochet", "Mining", "Snow Day", "Amount", "Scatter", "Sweeping",
-    "Looting", "Coin Magnet", "Piercing", "Crit 3 Combo", "Quick Hit 3", "Crit 2 Combo", "Knockback 3", "Controller",
-    "Paralysis 3", "Quick Hit 2", "AOE"
+    "Quick Breaking", "Unbinding", "Range", "Ricochet", "Snow Day", "Amount", "Scatter", "Sweeping", "Coin Magnet",
+    "Crit 3 Combo", "Quick Hit 3", "Crit 2 Combo", "Knockback 3", "Controller", "Paralysis 3", "Quick Hit 2", "AOE"
   ];
 
-  const romanNumeralStats = ["Piercing", "Mining"];
+  const romanNumeralStats = ["Piercing", "Mining", "Looting"];
 
-  const statMinCapKeys = { "Range": "minrange" };
+  const statMinCapKeys = { 
+    "Range": "minrange" 
+  };
+  
   const statMaxCapKeys = {
     "Range": "maxrange",
     "Armor": "maxarmor",
@@ -355,8 +357,88 @@ function updateResultsHeader() {
     "Critical Damage": "maxcritdmg"
   };
 
-  const minValues = { "+1 Stew Output": 1, "Quick Breaking": 1, "Unbinding": 1, "Multi-Atk": 1 };
-  const maxValues = { "Critical Chance": 100, "Triple Ore": 100, "Double Ore": 100, "Spell Damage": 200 };
+  const minValues = {
+    "Extra Coin": 1,
+    "+1 Stew Output": 1,
+    "Multi-Atk": 1,
+    "Quick Breaking": 1,
+    "Unbinding": 1,
+    "Ricochet": 1,
+    "Mining": 1,
+    "Snow Day": 1,
+    "Scatter": 1,
+    "Sweeping": 1,
+    "Looting": 1,
+    "Coin Magnet": 1,
+    "Piercing": 1,
+    "Crit 3 Combo": 1,
+    "Quick Hit 3": 1,
+    "Crit 2 Combo": 1,
+    "Knockback 3": 1,
+    "Controller": 1,
+    "Paralysis 3": 1,
+    "Quick Hit 2": 1,
+    "AOE": 1
+  };
+
+  const maxValues = {
+    "Critical Chance": 100,
+    "Extra Coin": 1,
+    "Lifesteal": 100,
+    "Burn Chance": 100,
+    "Bleed Chance": 100,
+    "Berserk Damage": 300,
+    "Stun Chance": 50,
+    "Hp Efficiency": 65,
+    "+1 Stew Output": 1,
+    "Multi-Atk": 3,
+    "Quick Breaking": 1,
+    "Double Ore": 100,
+    "Endure": 50,
+    "Unbinding": 1,
+    "Poison Reduction": 50,
+    "Ricochet": 1,
+    "Triple Ore": 100,
+    "Mining": 4,
+    "Knockback": 100,
+    "Snow Day": 1,
+    "Scatter": 1,
+    "Sweeping": 1,
+    "Looting": 4,
+    "Life Heal": 100,
+    "Mana Efficiency": 30,
+    "Paralysis Chance": 50,
+    "Cast Surge": 300,
+    "Reflect Chance": 15,
+    "Coin Magnet": 2,
+    "Spell Damage": 200,
+    "Elite Damage": 10,
+    "Boss Damage": 10,
+    "Piercing": 2,
+    "Poison Chance": 30,
+    "Crit 3 Combo": 1,
+    "Quad Ore": 100,
+    "Max Barrier": 50,
+    "Haste Damage": 10,
+    "Self Damage": 10,
+    "Spellcast Marty": 40,
+    "Free Spellcast": 10,
+    "Haste Chance": 5,
+    "Quick Hit 3": 1,
+    "Crit 2 Combo": 1,
+    "Knockback 3": 1,
+    "Controller": 1,
+    "Pull Chance": 100,
+    "Stun Resistance": 100,
+    "Paralysis 3": 1,
+    "Quick Hit 2": 1,
+    "Knockback Resistance": 100,
+    "Water Breathing": 100,
+    "Panic Resist": 50,
+    "Recycle Throwable": 25,
+    "Hp %": 20,
+    "AOE": 2
+  };
 
   const minrarity = equipment.minrarity;
   const maxrarity = equipment.maxrarity;
