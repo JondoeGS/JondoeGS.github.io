@@ -37,13 +37,13 @@ function initEquipmentStats() {
   const raritySelect = document.getElementById('rarity');
   const levelSelect = document.getElementById('level');
 
-  // Populate equipment types
-  Object.keys(equipmentStats).forEach(type => {
-    const option = document.createElement('option');
-    option.value = type;
-    option.textContent = type;
-    equipmentSelect.appendChild(option);
-  });
+  // Populate equipment types -- Currently hardcoded in the HTML <select> block
+  // Object.keys(equipmentStats).forEach(type => {
+    // const option = document.createElement('option');
+    // option.value = type;
+    // option.textContent = type;
+    // equipmentSelect.appendChild(option);
+  // });
 
   // Populate rarities
   Object.keys(rarityValues).forEach(rarity => {
@@ -348,7 +348,7 @@ function updateResultsHeader() {
   const statMinCapKeys = { 
     "Range": "minrange" 
   };
-  
+
   const statMaxCapKeys = {
     "Range": "maxrange",
     "Armor": "maxarmor",
