@@ -4,6 +4,19 @@ function toggleMenu() {
   menu.classList.toggle('show');
 }
 
+// Close menu if user clicks outside of it
+document.addEventListener("click", function(event) {
+  const menu = document.getElementById("menu");
+  const menuToggle = document.getElementById("menuToggle");
+
+  // If menu is open, and click is outside menu & toggle button → close
+  if (menu.classList.contains("show") && 
+      !menu.contains(event.target) && 
+      !menuToggle.contains(event.target)) {
+    menu.classList.remove("show");
+  }
+});
+
 // Formats numbers using user's locale (e.g., 1,000 vs 1.000)
 function formatNumber(value) {
   const userLocale = navigator.language || 'en-US';
