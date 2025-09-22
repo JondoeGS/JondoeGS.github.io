@@ -20,7 +20,8 @@ h2 {
 }
 
 /* Table layout for calculators */
-table.calc-table, #selectOptions, #Results {
+table.calc-table,
+#selectOptions {
   width: 40%;
   max-width: 800px;
   margin: 20px auto;
@@ -31,29 +32,54 @@ table.calc-table, #selectOptions, #Results {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-#selectOptions, #Results {
+#selectOptions {
   width: 50%;
 }
 
-table.calc-table th, table.calc-table td,
-#selectOptions th, #selectOptions td,
-#Results th, #Results td {
+table.calc-table th,
+table.calc-table td,
+#selectOptions th,
+#selectOptions td {
   border: 1px solid #2f3266;
   padding: 12px 16px;
   color: #f3d4aa;
 }
 
 table.calc-table th,
-#selectOptions th,
-#Results th {
+#selectOptions th {
   background-color: #2a2e5a;
   font-weight: bold;
 }
 
 table.calc-table tr:nth-child(even),
-#selectOptions tr:nth-child(even),
-#Results tr:nth-child(even) {
+#selectOptions tr:nth-child(even) {
   background-color: #20244e;
+}
+
+/* Result tables (shared class) */
+.results-table {
+  width: 50%;
+}
+
+.results-table th,
+.results-table td {
+  border: 1px solid #2f3266;
+  padding: 12px 16px;
+  color: #f3d4aa;
+}
+
+.results-table th {
+  background-color: #2a2e5a;
+  font-weight: bold;
+}
+
+.results-table tr:nth-child(even) {
+  background-color: #20244e;
+}
+
+.results-table td:nth-child(n+2),
+.results-table th:nth-child(n+2) {
+  text-align: center;
 }
 
 /* Inputs and selects */
@@ -67,6 +93,7 @@ input[type="number"] {
   border: 1px solid #000;
   border-radius: 6px;
   box-sizing: border-box;
+  min-width: 160px;
 }
 
 select:focus,
@@ -76,22 +103,21 @@ input:focus {
   background-color: #3a3e7a;
 }
 
-/* Narrow tables */
-select {
-  max-width: 125px;
-}
+/* Narrow selects */
+/* select { */
+  /* max-width: 125px; */
+/* } */
 
-#Results td:nth-child(n+2),
-#Results th:nth-child(n+2) {
+/* Align first and second columns */
+td:nth-child(1),
+th:nth-child(1) {
   text-align: center;
 }
 
-td:nth-child(1), th:nth-child(1) {
-  text-align: center;
-}
-
-td:nth-child(2), th:nth-child(2) {
+td:nth-child(2),
+th:nth-child(2) {
   text-align: left;
+  min-width: 200px;
 }
 
 /* Corner menu toggle */
@@ -115,45 +141,57 @@ td:nth-child(2), th:nth-child(2) {
   position: absolute;
   top: 60px;
   left: 20px;
-  background-color: #363b77;
-  border: 1px solid #c69da3;
+  background-color: #1b1f42;
+  border: none; /* Remove outer border */
+  border-radius: 8px;
   font-size: 14px;
   z-index: 1000;
-  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
 #menu table {
   border-collapse: collapse;
-  width: 140px;
+  width: 160px;
 }
 
-#menu th {
-  background-color: #363b77;
-  color: #f3d4aa;
-  padding: 8px;
-  border-bottom: 1px solid #c69da3;
-  text-align: center;
-}
-
+#menu th,
 #menu td {
-  padding: 6px;
-  border-top: 1px solid #c69da3;
+  border: 1px solid #2f3266;
+  color: #f3d4aa;
+  padding: 12px 16px;
+  text-align: center;
+  background-color: #2a2e5a;
+  transition: background-color 0.2s ease;
+}
+
+#menu tr:nth-child(even) td {
+  background-color: #20244e;
 }
 
 #menu a {
+  display: block;
+  width: 100%;
   color: #f3d4aa;
   text-decoration: none;
 }
 
-#menu a:hover {
-  text-decoration: underline;
+#menu td:hover {
+  background-color: #363b77 !important;  /* uniform highlight color */
+  cursor: pointer;
+}
+
+#menu td a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* Mobile styles */
 @media (max-width: 768px) {
   table.calc-table,
   #selectOptions,
-  #Results {
+  .results-table {
     width: 100%;
     font-size: 14px;
   }
@@ -172,10 +210,36 @@ td:nth-child(2), th:nth-child(2) {
   }
 
   #menu {
-    transform: translateX(-200px); /* Hidden by default */
+    transform: translateX(-200px);
   }
 
   #menu.show {
-    transform: translateX(0); /* Slide in */
+    transform: translateX(0);
   }
+}
+
+#equipmentResults th:nth-child(2),
+#equipmentResults td:nth-child(2),
+#equipmentResults th:nth-child(3),
+#equipmentResults td:nth-child(3) {
+  width: 130px;
+  min-width: 130px;
+  text-align: center;
+}
+
+.glacier-table {
+  table-layout: fixed;
+}
+
+.glacier-table th:nth-child(1),
+.glacier-table td:nth-child(1) {
+  width: 125px;
+  text-align: left;
+  padding-left: 16px;
+}
+
+.glacier-table th:nth-child(2),
+.glacier-table td:nth-child(2) {
+  width: 200px;
+  text-align: center;
 }
