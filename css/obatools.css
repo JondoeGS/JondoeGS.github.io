@@ -216,6 +216,12 @@ th:nth-child(2) {
   #menu.show {
     transform: translateX(0);
   }
+
+  /* Force title line break on small screens */
+  h2 .mobile-break::before {
+    content: "\A";  /* line break */
+    white-space: pre;
+  }
 }
 
 #equipmentResults th:nth-child(2),
