@@ -70,50 +70,51 @@ function initEquipmentStats() {
   updateResultsHeader();
 }
 
+// --** UNUSED, KEEPING IN CASE OF FUTURE WORK **--
 // Populate equipmentResults table
-function updateResultsHeader() {
-  const type = document.getElementById('equipment').value;
-  const rarityName = document.getElementById('rarity').value;
-  const level = parseInt(document.getElementById('level').value);
-  const rarity = rarityValues[rarityName];
-  const equipment = equipmentStats[type] || [];
+// function updateResultsHeader() {
+  // const type = document.getElementById('equipment').value;
+  // const rarityName = document.getElementById('rarity').value;
+  // const level = parseInt(document.getElementById('level').value);
+  // const rarity = rarityValues[rarityName];
+  // const equipment = equipmentStats[type] || [];
 
-  const resultTableHeader = document.querySelector('#equipmentResults thead');
-  const resultTableBody = document.querySelector('#equipmentResults tbody');
+  // const resultTableHeader = document.querySelector('#equipmentResults thead');
+  // const resultTableBody = document.querySelector('#equipmentResults tbody');
 
   // Clear table
-  resultTableHeader.innerHTML = '<tr><th>Stat</th><th>Minimum</th><th>Maximum</th><th>%</th></tr>';
-  resultTableBody.innerHTML = '';
+  // resultTableHeader.innerHTML = '<tr><th>Stat</th><th>Minimum</th><th>Maximum</th><th>%</th></tr>';
+  // resultTableBody.innerHTML = '';
 
-  if (!equipment.length) {
-    resultTableBody.innerHTML = '<tr><td colspan="4">No stats available for this equipment.</td></tr>';
-    return;
-  }
+  // if (!equipment.length) {
+    // resultTableBody.innerHTML = '<tr><td colspan="4">No stats available for this equipment.</td></tr>';
+    // return;
+  // }
 
-  equipment.forEach(item => {
-    const stat = item.stat;
-    const minresult = item.min + item.growth * level * rarity;
-    const maxresult = item.max + item.growth * level * rarity;
-    const isPercentage = percentageStats.includes(stat);
-    const isRounded = roundStats.includes(stat);
+  // equipment.forEach(item => {
+    // const stat = item.stat;
+    // const minresult = item.min + item.growth * level * rarity;
+    // const maxresult = item.max + item.growth * level * rarity;
+    // const isPercentage = percentageStats.includes(stat);
+    // const isRounded = roundStats.includes(stat);
 
-    let displayMin = isRounded ? Math.round(minresult) : minresult.toFixed(2);
-    let displayMax = isRounded ? Math.round(maxresult) : maxresult.toFixed(2);
-    if (isPercentage) {
-      displayMin += '%';
-      displayMax += '%';
-    }
+    // let displayMin = isRounded ? Math.round(minresult) : minresult.toFixed(2);
+    // let displayMax = isRounded ? Math.round(maxresult) : maxresult.toFixed(2);
+    // if (isPercentage) {
+      // displayMin += '%';
+      // displayMax += '%';
+    // }
 
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${stat}</td>
-      <td>${displayMin}</td>
-      <td>${displayMax}</td>
-      <td>${isPercentage ? '✓' : ''}</td>
-    `;
-    resultTableBody.appendChild(row);
-  });
-}
+    // const row = document.createElement('tr');
+    // row.innerHTML = `
+      // <td>${stat}</td>
+      // <td>${displayMin}</td>
+      // <td>${displayMax}</td>
+      // <td>${isPercentage ? '✓' : ''}</td>
+    // `;
+    // resultTableBody.appendChild(row);
+  // });
+// }
 
 // Initialize Glacier Calculator tab
 function initGlacierCalculator() {
@@ -174,7 +175,7 @@ function calculateGlacierDamage() {
   document.getElementById('manaSacrifice').textContent = Math.round(bestDamage * 2).toLocaleString();
 }
 
-// Core logic for Archer Damage
+// Core logic for Archer Damage  --** UNUSED, KEEPING IN CASE OF FUTURE WORK **--
 //function calculateArcherDamage() {
   //const PL = +document.getElementById('pl').value;
   //const SP = +document.getElementById('sp').value;
@@ -323,40 +324,110 @@ function updateResultsHeader() {
   resultTableBody.innerHTML = '';
 
   if (!equipment || !equipment.stats) {
-    resultTableBody.innerHTML = '<tr><td colspan="4">No stats available for this equipment.</td></tr>';
+    resultTableBody.innerHTML = '<tr><td colspan="4">There was an error. Please contact @Jondoe.</td></tr>';
     return;
   }
 
+  // Add a "%" at the end of each value in resultsTable
   const percentageStats = [
-    "Critical Chance", "Critical Damage", "Lifesteal", "Burn Chance", "Bleed Chance", "Berserk Damage", "Stun Chance",
-    "Armor", "Hp Efficiency", "Double Ore", "Endure", "Poison Reduction", "Triple Ore", "Knockback", "Life Heal",
-    "Mana Efficiency", "Paralysis Chance", "Cast Surge", "Ore Explorer", "Reflect Chance", "Spell Damage",
-    "Elite Damage", "Boss Damage", "Poison Chance", "Quad Ore", "Max Barrier", "Haste Damage", "Self Damage",
-    "Spellcast Marty", "Free Spellcast", "Haste Chance", "Double Item Chance", "Mana %", "Pull Chance",
-    "Stun Resistance", "Throw Damage", "Poison Damage", "Knockback Resistance", "Oxygen Boost", "Water Breathing",
-    "Panic Resist", "Recycle Throwable", "Hp %"
+    "Critical Chance", 
+    "Critical Damage", 
+    "Lifesteal", 
+    "Burn Chance", 
+    "Bleed Chance", 
+    "Berserk Damage", 
+    "Stun Chance",
+    "Armor", 
+    "Hp Efficiency", 
+    "Double Ore", 
+    "Endure", 
+    "Poison Reduction", 
+    "Triple Ore", 
+    "Knockback", 
+    "Life Heal",
+    "Mana Efficiency", 
+    "Paralysis Chance", 
+    "Cast Surge", 
+    "Ore Explorer", 
+    "Reflect Chance", 
+    "Spell Damage",
+    "Elite Damage", 
+    "Boss Damage", 
+    "Poison Chance", 
+    "Quad Ore", 
+    "Max Barrier", 
+    "Haste Damage", 
+    "Self Damage",
+    "Spellcast Marty", 
+    "Free Spellcast", 
+    "Haste Chance", 
+    "Double Item Chance", 
+    "Mana %", 
+    "Pull Chance",
+    "Stun Resistance", 
+    "Throw Damage", 
+    "Poison Damage", 
+    "Knockback Resistance", 
+    "Oxygen Boost", 
+    "Water Breathing",
+    "Panic Resist", 
+    "Recycle Throwable", 
+    "Hp %"
   ];
 
+  // These stats are rounded to the nearest whole number
   const roundStats = [
-    "Health", "Damage", "Mana", "Mp Damage", "Extra Coin", "Burn Damage", "Bleed", "+1 Stew Output", "Multi-Atk",
-    "Quick Breaking", "Unbinding", "Range", "Ricochet", "Snow Day", "Amount", "Scatter", "Sweeping", "Coin Magnet",
-    "Crit 3 Combo", "Quick Hit 3", "Crit 2 Combo", "Knockback 3", "Controller", "Paralysis 3", "Quick Hit 2", "AOE"
+    "Health", 
+    "Damage", 
+    "Mana", 
+    "Mp Damage", 
+    "Extra Coin", 
+    "Burn Damage", 
+    "Bleed", 
+    "+1 Stew Output", 
+    "Multi-Atk",
+    "Quick Breaking", 
+    "Unbinding", 
+    "Range", 
+    "Ricochet", 
+    "Snow Day", 
+    "Amount", 
+    "Scatter", 
+    "Sweeping", 
+    "Coin Magnet",
+    "Crit 3 Combo", 
+    "Quick Hit 3", 
+    "Crit 2 Combo", 
+    "Knockback 3", 
+    "Controller", 
+    "Paralysis 3", 
+    "Quick Hit 2", 
+    "AOE"
   ];
 
-  const romanNumeralStats = ["Piercing", "Mining", "Looting"];
+  // These stats appear in Roman Numerals
+  const romanNumeralStats = [
+    "Piercing", 
+    "Mining", 
+    "Looting"
+  ];
 
+  // Minimums that are assigned in equipment-data for varying minimum values
   const statMinCapKeys = { 
     "Range": "minrange" 
   };
 
+  // Maximums that are assigned in equipment-data for varying maximum values
   const statMaxCapKeys = {
     "Range": "maxrange",
     "Armor": "maxarmor",
     "Mana %": "maxmana",
     "Ore Explorer": "maxoreexplorer",
-    "Critical Damage": "maxcritdmg"
+    "Critical Damage": "maxcritdmg",
+    "Reflect Chance": "maxreflect"
   };
 
+  // Global minimum values -- used to prevent rounding down to zero
   const minValues = {
     "Extra Coin": 1,
     "+1 Stew Output": 1,
@@ -381,6 +452,7 @@ function updateResultsHeader() {
     "AOE": 1
   };
 
+  // Global maximum values
   const maxValues = {
     "Critical Chance": 100,
     "Extra Coin": 1,
@@ -409,7 +481,7 @@ function updateResultsHeader() {
     "Mana Efficiency": 30,
     "Paralysis Chance": 50,
     "Cast Surge": 300,
-    "Reflect Chance": 15,
+    //"Reflect Chance": 15,
     "Coin Magnet": 2,
     "Spell Damage": 200,
     "Elite Damage": 10,
@@ -522,4 +594,4 @@ function getRarityNameByValue(value) {
 
 window.initEquipmentStats = initEquipmentStats;
 window.initGlacierCalculator = initGlacierCalculator;
-//window.initArcherCalculator = initArcherCalculator;
+// window.initArcherCalculator = initArcherCalculator; // --** UNUSED, KEEPING IN CASE OF FUTURE WORK **--

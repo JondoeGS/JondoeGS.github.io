@@ -501,7 +501,8 @@ const equipmentStats = {
             { stat: "Reflect Chance", minx: 0.5, maxx: 0.7, mins: 200, maxs: 400, percentage: 50 }
         ],
         minrarity: 4, maxrarity: 8,
-        maxarmor: 15
+        maxarmor: 15,
+        maxreflect: 25
         },
  
         GreedC: {
@@ -705,7 +706,8 @@ const equipmentStats = {
             { stat: "Reflect Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 75 }
         ],
         minrarity: 4, maxrarity: 8,
-        maxarmor: 5
+        maxarmor: 5,
+        maxreflect: 15
         },
  
         GreedH: {
