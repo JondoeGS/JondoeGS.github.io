@@ -424,7 +424,8 @@ function updateResultsHeader() {
     "Mana %": "maxmana",
     "Ore Explorer": "maxoreexplorer",
     "Critical Damage": "maxcritdmg",
-    "Reflect Chance": "maxreflect"
+    "Reflect Chance": "maxreflect",
+    "Double Item Chance": "maxgreed"
   };
 
   // Global minimum values -- used to prevent rounding down to zero

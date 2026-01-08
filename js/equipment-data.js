@@ -512,7 +512,8 @@ const equipmentStats = {
             { stat: "Double Item Chance", minx: 0.1, maxx: 0.15, mins: 200, maxs: 500, percentage: 50 }
         ],
         minrarity: 3, maxrarity: 8,
-        maxarmor: 15
+        maxarmor: 15,
+        maxgreed: 30
         },
  
         MagicianC: {
