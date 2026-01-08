@@ -239,7 +239,7 @@ const equipmentStats = {
         minrarity: 3, maxrarity: 8
         },
  
-        LongStaff: {
+        Longstaff: {
         stats: [
             { stat: "Mp Damage", minx: 0.3, maxx: 0.35, mins: 3, maxs: 6, percentage: 100 },
             { stat: "Mana", minx: 0.4, maxx: 0.5, mins: 20, maxs: 40, percentage: 100 },
