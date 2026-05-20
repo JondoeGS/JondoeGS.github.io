@@ -264,10 +264,33 @@ function updateResultsHeader() {
       <td>${formatNumber(min)}</td>
       <td>${formatNumber(max)}</td>
       <td>${item.percentage ?? ''}%</td>
-      <td><input type="number" class="override-input" data-stat="${stat}" data-field="minx" placeholder="${item.minx}" value="${override.minx ?? ''}"></td>
-      <td><input type="number" class="override-input" data-stat="${stat}" data-field="maxx" placeholder="${item.maxx}" value="${override.maxx ?? ''}"></td>
-      <td><input type="number" class="override-input" data-stat="${stat}" data-field="mins" placeholder="${item.mins}" value="${override.mins ?? ''}"></td>
-      <td><input type="number" class="override-input" data-stat="${stat}" data-field="maxs" placeholder="${item.maxs}" value="${override.maxs ?? ''}"></td>
+      <td>
+        <div class="override-input-wrap">
+          <input type="number" class="override-input" data-stat="${stat}" data-field="minx" placeholder="${item.minx}" value="${override.minx ?? ''}">
+          <button type="button" class="clear-override" data-stat="${stat}" data-field="minx">×</button>
+        </div>
+      </td>
+
+      <td>
+        <div class="override-input-wrap">
+          <input type="number" class="override-input" data-stat="${stat}" data-field="maxx" placeholder="${item.maxx}" value="${override.maxx ?? ''}">
+          <button type="button" class="clear-override" data-stat="${stat}" data-field="maxx">×</button>
+        </div>
+      </td>
+
+      <td>
+        <div class="override-input-wrap">
+        <input type="number" class="override-input" data-stat="${stat}" data-field="mins" placeholder="${item.mins}" value="${override.mins ?? ''}">
+          <button type="button" class="clear-override" data-stat="${stat}" data-field="mins">×</button>
+        </div>
+      </td>
+
+      <td>
+        <div class="override-input-wrap">
+          <input type="number" class="override-input" data-stat="${stat}" data-field="maxs" placeholder="${item.maxs}" value="${override.maxs ?? ''}">
+          <button type="button" class="clear-override" data-stat="${stat}" data-field="maxs">×</button>
+        </div>
+      </td>
     `;
 
     resultTableBody.appendChild(row);
@@ -298,7 +321,29 @@ function attachOverrideListeners() {
         equipmentOverrides[stat] = {};
       }
 
-      equipmentOverrides[stat][field] = input.value;
+      let value = Number(input.value);
+
+      if (isNaN(value) || input.value === "") {
+        equipmentOverrides[stat][field] = "";
+      } else {
+        equipmentOverrides[stat][field] = Math.max(0, value);
+      }
+
+      updateResultsHeader();
+    });
+  });
+  document.querySelectorAll('.clear-override').forEach(button => {
+    button.addEventListener('click', () => {
+      const stat = button.dataset.stat;
+      const field = button.dataset.field;
+
+      if (equipmentOverrides[stat]) {
+        delete equipmentOverrides[stat][field];
+
+        if (Object.keys(equipmentOverrides[stat]).length === 0) {
+          delete equipmentOverrides[stat];
+        }
+      }
 
       updateResultsHeader();
     });

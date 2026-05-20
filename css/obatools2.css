@@ -100,7 +100,7 @@ table.calc-table tr:nth-child(even),
 
 /* Left results table */
 #equipmentResults {
-  width: 52%;
+  width: 80%;
 }
 
 /* Strong divider between results and editable values */
@@ -115,44 +115,18 @@ table.calc-table tr:nth-child(even),
   background-color: #25295a;
 }
 
-/* Right editable override table */
-#equipmentOverrideTable {
-  width: 42%;
-  table-layout: fixed;
-}
+/* Compact override input fields */
+#equipmentResults input.override-input {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
 
-#equipmentOverrideTable th,
-#equipmentOverrideTable td {
+  padding: 2px 4px;
+
   text-align: center;
-  padding: 10px 12px;
-}
+  font-size: 12px;
 
-/* Stat column a little wider */
-#equipmentOverrideTable th:nth-child(1),
-#equipmentOverrideTable td:nth-child(1) {
-  width: 34%;
-  text-align: left;
-}
-
-/* MinX / MaxX / MinS / MaxS columns */
-#equipmentOverrideTable th:nth-child(n+2),
-#equipmentOverrideTable td:nth-child(n+2) {
-  width: 16.5%;
-}
-
-/* Future input styling for override cells */
-#equipmentOverrideTable input[type="number"] {
-  width: 100%;
-  min-width: 0;
-  text-align: center;
-  padding: 6px;
-  font-size: 14px;
-}
-
-/* Hidden cells used on the rarity row */
-.empty-extension-cell {
-  border: none !important;
-  background: transparent !important;
+  box-sizing: border-box;
 }
 
 /* Inputs and selects */
@@ -218,6 +192,77 @@ th:nth-child(2) {
 /* Editable formula columns */
 #equipmentResults th:nth-child(n+5),
 #equipmentResults td:nth-child(n+5) {
-  width: 9%;
+  width: 55px;
+  min-width: 55px;
+  max-width: 55px;
   text-align: center;
+}
+
+/* Make the blank right-side rarity cells disappear */
+#equipmentResults .empty-extension-cell {
+  border: none !important;
+  background-color: #0d0d2b !important;
+
+  /* hide inherited table glow */
+  box-shadow: none !important;
+
+  /* visually erase remaining edge glow */
+  position: relative;
+}
+
+#equipmentResults .empty-extension-cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #0d0d2b;
+}
+
+/* Restore rounded right edge on the visible Rarity row */
+#equipmentResults tbody tr:last-child td:nth-child(2) {
+  border-bottom-right-radius: 8px;
+}
+
+/* Remove the divider continuation on the hidden Rarity row cells */
+#equipmentResults tbody tr:last-child td:nth-child(5) {
+  border-left: none !important;
+}
+
+/* Override input placeholder styling */
+#equipmentResults input.override-input::placeholder {
+  color: #8a8db5;
+  opacity: 1;
+}
+
+/* Remove spinner arrows from override number inputs */
+#equipmentResults input.override-input::-webkit-outer-spin-button,
+#equipmentResults input.override-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#equipmentResults input.override-input {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.override-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.clear-override {
+  color: #ff3333;
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.clear-override:hover {
+  color: #ff7777;
 }
