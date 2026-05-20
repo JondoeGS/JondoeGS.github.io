@@ -313,7 +313,7 @@ function updateResultsHeader() {
 // Adds listeners to override inputs after the table is rebuilt
 function attachOverrideListeners() {
   document.querySelectorAll('.override-input').forEach(input => {
-    input.addEventListener('input', () => {
+    input.addEventListener('change', () => {
       const stat = input.dataset.stat;
       const field = input.dataset.field;
 
